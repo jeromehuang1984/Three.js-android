@@ -1,0 +1,7 @@
+/build
+/5.1.1
+/javaCompile
+/vcs-1
+/vcsMetadata-1
+*.iml
+gc.properties

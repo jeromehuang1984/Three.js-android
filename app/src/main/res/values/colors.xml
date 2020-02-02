@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8BC34A</color>
+    <color name="colorPrimaryDark">#B29257C9</color>
+    <color name="colorSecondary">#245E0A</color>
+    <color name="colorAccent">#2dbe60</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_32">#51ffffff</color>
+    <color name="white_60">#99ffffff</color>
+    <color name="text_gray">#99000000</color>
+    <color name="warm_grey_87">#de757575</color>
+    <color name="warm_grey">#757575</color>
+    <color name="blue_chalk">#EDD9FF</color>
+    <color name="medium_orchid">#B45FFE</color>
+</resources>
