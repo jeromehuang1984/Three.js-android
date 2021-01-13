@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import edu.cs4730.opengl30cube.renderer.LambertPhongLightRender;
 import edu.cs4730.opengl30cube.renderer.RaycastCameraControlView;
+import edu.cs4730.opengl30cube.renderer.TestPerformanceView;
 import edu.cs4730.opengl30cube.renderer.TextureDemo;
 
 public class MainListItems {
@@ -17,6 +18,7 @@ public class MainListItems {
         addItem(new Item(RaycastCameraControlView.class, "光线碰撞，摄像机的轨迹球控制，法线材质，线框材质"));
         addItem(new Item(LambertPhongLightRender.class, "lambert材质, phong材质, 光照及阴影"));
         addItem(new Item(TextureDemo.class, "带纹理的立方体"));
+        addItem(new Item(TestPerformanceView.class, "性能测试"));
     }
 
     public static class Item {

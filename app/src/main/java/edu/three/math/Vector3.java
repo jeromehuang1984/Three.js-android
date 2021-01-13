@@ -1,7 +1,5 @@
 package edu.three.math;
 
-import edu.three.math.MathTool;
-
 import edu.three.cameras.Camera;
 import edu.three.core.BufferAttribute;
 
@@ -247,6 +245,19 @@ public class Vector3 {
         this.x = sx;
         this.y = sy;
         this.z = sz;
+
+        return this;
+    }
+
+    public Vector3 setFromSpherical(Spherical s) {
+        return setFromSphericalCoords(s.radius, s.phi, s.theta);
+    }
+
+    public Vector3 setFromSphericalCoords(float radius, float phi, float theta) {
+        float sinPhiRadius = (float)Math.sin(phi) * radius;
+        this.x = sinPhiRadius * (float)Math.sin( theta );
+        this.y = (float)Math.cos( phi ) * radius;
+        this.z = sinPhiRadius * (float)Math.cos( theta );
 
         return this;
     }

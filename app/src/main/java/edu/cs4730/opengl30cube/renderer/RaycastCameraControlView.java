@@ -130,7 +130,7 @@ public class RaycastCameraControlView extends BaseRender {
     public void onDrawFrame(GL10 glUnused) {
         if (renderer != null) {
             renderer.render(scene, camera);
-            controls.update();
+            ((TrackballControls) controls).update();
         }
     }
 

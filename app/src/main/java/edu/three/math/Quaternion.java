@@ -110,6 +110,31 @@ public class Quaternion {
         return this;
     }
 
+    public Quaternion setFromUnitVectors(Vector3 vFrom, Vector3 vTo) {
+        float EPS = 0.000001f;
+        float r = vFrom.dot(vTo) + 1;
+        if (r < EPS) {
+            r = 0;
+            if (Math.abs(vFrom.x) > Math.abs(vFrom.z)) {
+                this.x = - vFrom.y;
+                this.y = vFrom.x;
+                this.z = 0;
+                this.w = r;
+            } else {
+                this.x = 0;
+                this.y = -vFrom.z;
+                this.z = vFrom.y;
+                this.w = r;
+            }
+        } else {
+            this.x = vFrom.y * vTo.z - vFrom.z * vTo.y;
+            this.y = vFrom.z * vTo.x - vFrom.x * vTo.z;
+            this.z = vFrom.x * vTo.y - vFrom.y * vTo.x;
+            this.w = r;
+        }
+        return this.normalize();
+    }
+
     public Quaternion multiplyQuaternions(Quaternion a, Quaternion b) {
         // from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
 

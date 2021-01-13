@@ -5,11 +5,12 @@ import android.view.MotionEvent;
 import edu.three.cameras.Camera;
 import edu.three.core.Event;
 import edu.three.core.EventDispatcher;
+import edu.three.interfaces.ITouch;
 import edu.three.math.Quaternion;
 import edu.three.math.Vector2;
 import edu.three.math.Vector3;
 
-public class TrackballControls extends EventDispatcher {
+public class TrackballControls extends EventDispatcher implements ITouch {
     State _state = State.NONE;
     float EPS = 0.000001f;
     public boolean enabled = true;

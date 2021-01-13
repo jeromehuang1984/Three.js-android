@@ -73,7 +73,7 @@ public class TextureDemo extends BaseRender {
     //
     public void onDrawFrame(GL10 glUnused) {
         renderer.render(scene, camera);
-        controls.update();
+        ((TrackballControls) controls).update();
     }
 
     public void onSurfaceChanged(GL10 glUnused, int width, int height) {

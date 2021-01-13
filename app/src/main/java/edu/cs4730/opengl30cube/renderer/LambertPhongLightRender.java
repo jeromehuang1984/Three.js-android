@@ -152,7 +152,7 @@ public class LambertPhongLightRender extends BaseRender {
 
         cameraLight.position.copy(camera.position);
         renderer.render(scene, camera);
-        controls.update();
+        ((TrackballControls) controls).update();
     }
 
     // /
