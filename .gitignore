@@ -5,3 +5,5 @@
 /vcsMetadata-1
 *.iml
 gc.properties
+.gradle
+.idea

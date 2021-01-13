@@ -14,19 +14,19 @@ import edu.three.textures.Texture;
 
 public class UniformsLib {
     public NeedUpdate needUpdate = new NeedUpdate();
-    HashMap<String, Object> hashMap = new HashMap<>();
+    public HashMap<String, Object> hashMap = new HashMap<>();
 
     public UniformsLib common() {
         hashMap.put("diffuse", new Color(0xeeeeee));
         hashMap.put("opacity", 1f);
         hashMap.put("uvTransform", new Matrix3());
-//        map = null;
-//        alphaMap = null;
+        hashMap.put("map", null);
+        hashMap.put("alphaMap", null);
         return this;
     }
 
     public UniformsLib specularmap() {
-        //specularMap = null;
+        hashMap.put("specularMap", null);
         return this;
     }
 
@@ -35,58 +35,58 @@ public class UniformsLib {
         hashMap.put("reflectivity", 1f);
         hashMap.put("refractionRatio", 0.98f);
         hashMap.put("maxMipLevel", 0);
-//        envMap = null;
+        hashMap.put("envMap", null);
         return this;
     }
 
     public UniformsLib aomap() {
         hashMap.put("aoMapIntensity", 1f);
-//        aoMap = null
+        hashMap.put("aoMap", null);
         return this;
     }
 
     public UniformsLib lightmap() {
         hashMap.put("lightMapIntensity", 1f);
-//        lightMap = null;
+        hashMap.put("lightMap", null);
         return this;
     }
 
     public UniformsLib emissivemap() {
-//        emissiveMap = null;
+        hashMap.put("emissiveMap", null);
         return this;
     }
 
     public UniformsLib bumpmap() {
         hashMap.put("bumpScale", 1f);
-//        addKeys(new String[] {"bumpMap", "bumpScale"});
+        hashMap.put("bumpMap", null);
         return this;
     }
 
     public UniformsLib normalmap() {
         hashMap.put("normalScale", new Vector2(1, 1));
-//        addKeys(new String[] {"normalMap", "normalScale"});
+        hashMap.put("normalMap", null);
         return this;
     }
 
     public UniformsLib displacementmap() {
         hashMap.put("displacementScale", 1f);
         hashMap.put("displacementBias", 0f);
-//        addKeys(new String[] {"displacementMap", "displacementScale", "displacementBias"});
+        hashMap.put("displacementMap", null);
         return this;
     }
 
     public UniformsLib roughnessmap() {
-//        addKeys(new String[] {"roughnessMap"});
+        hashMap.put("roughnessMap", null);
         return this;
     }
 
     public UniformsLib metalnessmap() {
-//        addKeys(new String[] {"metalnessMap"});
+        hashMap.put("metalnessMap", null);
         return this;
     }
 
     public UniformsLib gradientmap() {
-//        addKeys(new String[] {"gradientMap"});
+        hashMap.put("gradientMap", null);
         return this;
     }
 
@@ -104,7 +104,8 @@ public class UniformsLib {
         hashMap.put("size", 1f);
         hashMap.put("scale", 1f);
         hashMap.put("uvTransform", new Matrix3());
-//        map = null;
+        hashMap.put("map", null);
+        hashMap.put("alphaMap", null);
         return this;
     }
 
@@ -114,7 +115,8 @@ public class UniformsLib {
         hashMap.put("center", new Vector2(0.5f, 0.5f));
         hashMap.put("rotation", 0f);
         hashMap.put("uvTransform", new Matrix3());
-//        map = null;
+        hashMap.put("map", null);
+        hashMap.put("alphaMap", null);
         return this;
     }
 

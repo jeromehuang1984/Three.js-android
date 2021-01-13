@@ -1,6 +1,7 @@
 package edu.three.renderers.gl;
 
 import android.opengl.GLES30;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
