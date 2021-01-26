@@ -14,7 +14,7 @@ public class BaseRender implements GLSurfaceView.Renderer {
     protected int mWidth;
     protected int mHeight;
     protected float aspect;
-    private String TAG = getClass().getSimpleName();
+    protected String TAG = getClass().getSimpleName();
     protected GLRenderer renderer;
 
     protected ITouch controls;

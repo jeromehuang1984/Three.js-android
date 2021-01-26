@@ -317,6 +317,7 @@ public class GLProgram {
                     ( params.useFog && params.fogExp ) ? "#define FOG_EXP2" : "",
 
                     params.map ? "#define USE_MAP" : "",
+                    params.flipY ? "#define FLIP_Y" : "",
                     params.envMap ? "#define USE_ENVMAP" : "",
                     params.envMap ? "#define " + envMapModeDefine : "",
                     params.lightMap ? "#define USE_LIGHTMAP" : "",
@@ -427,6 +428,7 @@ public class GLProgram {
                     ( params.useFog && params.fogExp ) ? "#define FOG_EXP2" : "",
 
                     params.map ? "#define USE_MAP" : "",
+                    params.flipY ? "#define FLIP_Y" : "",
                     params.matcap ? "#define USE_MATCAP" : "",
                     params.envMap ? "#define USE_ENVMAP" : "",
                     params.envMap ? "#define " + envMapTypeDefine : "",

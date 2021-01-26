@@ -11,7 +11,7 @@ public class BufferAttribute {
     public float[] arrayFloat;
     public static int TYPE_FLOAT = 1;
     public static int TYPE_INT = 2;
-    private int bufferType;
+    protected int bufferType;
 
     private int arrLen;
     protected int itemSize = 1;

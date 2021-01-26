@@ -96,6 +96,8 @@ public class GLPrograms {
                 null : renderTarget.texture, renderer.gammaOutput );
 
         param.map = material.map != null;
+        if (material.map != null && material.map.flipY)
+            param.flipY = true;
         param.mapEncoding = getTextureEncoding(material.map);
         param.matcap = material.matcap != null;
         param.matcapEncoding = getTextureEncoding(material.matcap);
@@ -250,6 +252,7 @@ public class GLPrograms {
         public boolean supportsVertexTextures;
         public int outputEncoding;
         public boolean map;
+        public boolean flipY;
         public int mapEncoding;
         public boolean matcap;
         public int matcapEncoding;
