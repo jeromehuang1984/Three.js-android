@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import edu.three.math.Color;
 import edu.three.math.Matrix3;
+import edu.three.math.Vector2;
 import edu.three.math.Vector3;
 
 public class ShaderLib {
@@ -89,6 +90,23 @@ public class ShaderLib {
         ret.vertexShader = ShaderChunk.points_vert;
         ret.fragmentShader = ShaderChunk.points_frag;
         ret.name = "PointsMaterial";
+        return ret;
+    }
+
+    public static ShaderLib line() {
+        ShaderLib ret = new ShaderLib();
+        ret.uniforms = new UniformsLib().common().fog();
+        ret.uniforms.put("linewidth", 1f);
+        ret.uniforms.put("resolution", new Vector2(1, 1));
+        ret.uniforms.put("dashScale", 1f);
+        ret.uniforms.put("dashSize", 1f);
+        ret.uniforms.put("dashOffset", 0);
+        ret.uniforms.put("gapSize", 1);
+        ret.uniforms.put("opacity", 1);
+
+        ret.vertexShader = ShaderChunk.line_vert;
+        ret.fragmentShader = ShaderChunk.line_frag;
+        ret.name = "LineMaterial";
         return ret;
     }
 
@@ -210,7 +228,6 @@ public class ShaderLib {
         map.put("phong", phong());
         map.put("physical", physical());
         map.put("matcap", matcap());
-        map.put("basic", basic());
         map.put("dashed", dashed());
         map.put("points", points());
         map.put("shadow", shadow());

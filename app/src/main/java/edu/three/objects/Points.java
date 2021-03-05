@@ -41,7 +41,7 @@ public class Points extends Object3D {
         if (rayPointDistanceSq < localThresholdSq) {
             ray.closestPointToPoint(point, intersectPoint);
             intersectPoint.applyMatrix4(matrixWorld);
-            float distance = raycaster.ray.getOrigin().distanceTo(intersectPoint);
+            double distance = raycaster.ray.getOrigin().distanceTo(intersectPoint);
             if (distance < raycaster.near || distance > raycaster.far) {
                 return;
             }
@@ -73,8 +73,8 @@ public class Points extends Object3D {
         }
         ray.copy(raycaster.ray).applyMatrix4(inverseMatrix);
 
-        float localThreshold = threshold / ((scale.x + scale.y + scale.z) / 3);
-        float localThresholdSq = localThreshold * localThreshold;
+        float localThreshold = threshold / ((float)(scale.x + scale.y + scale.z) / 3);
+//        float localThresholdSq = localThreshold * localThreshold;
         Vector3 position = new Vector3();
         Vector3 intersectPoint = new Vector3();
 

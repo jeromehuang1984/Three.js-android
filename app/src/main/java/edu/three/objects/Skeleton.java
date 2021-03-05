@@ -12,14 +12,14 @@ public class Skeleton {
     public String TAG = getClass().getSimpleName();
     public ArrayList<Bone> bones = new ArrayList<>();
     public Matrix4[] boneInverses;
-    public float[] boneMatrices;
+    public double[] boneMatrices;
     public Texture boneTexture;
 
     public int boneTextureSize;
 
     public Skeleton(ArrayList<Bone> bones, Matrix4[] boneInverses) {
         this.bones = bones;
-        boneMatrices = new float[bones.size() * 16];
+        boneMatrices = new double[bones.size() * 16];
         if (boneInverses != null) {
             calculateInverses();
         } else {

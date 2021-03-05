@@ -2,9 +2,9 @@ package edu.three.math;
 
 public class Sphere {
     public Vector3 center = new Vector3();
-    public float radius;
+    public double radius;
 
-    public Sphere set(Vector3 center, float radius) {
+    public Sphere set(Vector3 center, double radius) {
         this.center.copy(center);
         this.radius = radius;
         return this;
@@ -20,11 +20,11 @@ public class Sphere {
         } else {
             center = box.setFromPoints(points).getCenter();
         }
-        float maxRadiusSq = 0;
+        double maxRadiusSq = 0;
         for (int i = 0; i < points.length; i++) {
             maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[i]));
         }
-        radius = (float) Math.sqrt(maxRadiusSq);
+        radius =  Math.sqrt(maxRadiusSq);
         return this;
     }
 

@@ -10,7 +10,7 @@ import edu.three.math.Vector2;
 import edu.three.math.Vector3;
 
 public class PolyhedronBufferGeometry extends BufferGeometry {
-    float radius = 1;
+    double radius = 1;
     int detail = 0;
     float[] vertices;
     int[] indices;
@@ -122,7 +122,7 @@ public class PolyhedronBufferGeometry extends BufferGeometry {
         }
     }
 
-    void appplyRadius(float radius) {
+    void appplyRadius(double radius) {
         Vector3 vertex = new Vector3();
         // iterate over the entire buffer and apply the radius to each vertex
         for ( int i = 0; i < vertexBuffer.size(); i += 3 ) {
@@ -133,9 +133,9 @@ public class PolyhedronBufferGeometry extends BufferGeometry {
 
             vertex.normalize().multiplyScalar( radius );
 
-            vertexBuffer.set(i, vertex.x);
-            vertexBuffer.set(i + 1, vertex.y);
-            vertexBuffer.set(i + 2, vertex.z);
+            vertexBuffer.set(i, (float)vertex.x);
+            vertexBuffer.set(i + 1, (float)vertex.y);
+            vertexBuffer.set(i + 2, (float)vertex.z);
         }
     }
 
@@ -147,10 +147,10 @@ public class PolyhedronBufferGeometry extends BufferGeometry {
             vertex.y = vertexBuffer.get(i + 1);
             vertex.z = vertexBuffer.get(i + 2);
 
-            float u = azimuth( vertex ) / 2 / MathTool.PI + 0.5f;
-            float v = inclination( vertex ) / MathTool.PI + 0.5f;
-            uvBuffer.add( u);
-            uvBuffer.add(1 - v);
+            double u = azimuth( vertex ) / 2 / Math.PI + 0.5f;
+            double v = inclination( vertex ) / Math.PI + 0.5f;
+            uvBuffer.add( (float)u);
+            uvBuffer.add(1 - (float)v);
         }
 
         correctUVs();
@@ -166,8 +166,8 @@ public class PolyhedronBufferGeometry extends BufferGeometry {
             float x1 = uvBuffer.get(i + 2);
             float x2 = uvBuffer.get(i + 4);
 
-            float max = MathTool.max( x0, x1, x2 );
-            float min = MathTool.min( x0, x1, x2 );
+            double max = MathTool.max( x0, x1, x2 );
+            double min = MathTool.min( x0, x1, x2 );
 
             // 0.9 is somewhat arbitrary
 
@@ -213,28 +213,28 @@ public class PolyhedronBufferGeometry extends BufferGeometry {
 
             centroid.copy( a ).add( b ).add( c ).divideScalar( 3 );
 
-            float azi = azimuth( centroid );
+            double azi = azimuth( centroid );
 
             correctUV( uvA, j + 0, a, azi );
             correctUV( uvB, j + 2, b, azi );
             correctUV( uvC, j + 4, c, azi );
         }
     }
-    void correctUV(Vector2 uv, int stride, Vector3 vector, float azimuth) {
+    void correctUV(Vector2 uv, int stride, Vector3 vector, double azimuth) {
         if ( ( azimuth < 0 ) && ( uv.x == 1 ) ) {
-            uvBuffer.set(stride, uv.x - 1);
+            uvBuffer.set(stride, (float)uv.x - 1);
         }
 
         if ( ( vector.x == 0 ) && ( vector.z == 0 ) ) {
-            uvBuffer.set(stride, azimuth / 2 / MathTool.PI + 0.5f);
+            uvBuffer.set(stride, (float)azimuth / 2 / MathTool.PI + 0.5f);
         }
     }
     // Angle around the Y axis, counter-clockwise when looking from above.
-    float azimuth(Vector3 vector) {
-        return (float) Math.atan2(vector.z, - vector.x);
+    double azimuth(Vector3 vector) {
+        return  Math.atan2(vector.z, - vector.x);
     }
     // Angle above the XZ plane.
-    float inclination(Vector3 vector) {
-        return (float) Math.atan2(- vector.y, Math.sqrt(( vector.x * vector.x ) + ( vector.z * vector.z )));
+    double inclination(Vector3 vector) {
+        return  Math.atan2(- vector.y, Math.sqrt(( vector.x * vector.x ) + ( vector.z * vector.z )));
     }
 }

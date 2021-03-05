@@ -39,11 +39,11 @@ public class Frustum {
     }
 
     public Frustum setFromMatrix(Matrix4 m) {
-        float[] me = m.te;
-        float me0 = me[ 0 ], me1 = me[ 1 ], me2 = me[ 2 ], me3 = me[ 3 ];
-        float me4 = me[ 4 ], me5 = me[ 5 ], me6 = me[ 6 ], me7 = me[ 7 ];
-        float me8 = me[ 8 ], me9 = me[ 9 ], me10 = me[ 10 ], me11 = me[ 11 ];
-        float me12 = me[ 12 ], me13 = me[ 13 ], me14 = me[ 14 ], me15 = me[ 15 ];
+        double[] me = m.te;
+        double me0 = me[ 0 ], me1 = me[ 1 ], me2 = me[ 2 ], me3 = me[ 3 ];
+        double me4 = me[ 4 ], me5 = me[ 5 ], me6 = me[ 6 ], me7 = me[ 7 ];
+        double me8 = me[ 8 ], me9 = me[ 9 ], me10 = me[ 10 ], me11 = me[ 11 ];
+        double me12 = me[ 12 ], me13 = me[ 13 ], me14 = me[ 14 ], me15 = me[ 15 ];
 
         planes[ 0 ].setComponents( me3 - me0, me7 - me4, me11 - me8, me15 - me12 ).normalize();
         planes[ 1 ].setComponents( me3 + me0, me7 + me4, me11 + me8, me15 + me12 ).normalize();
@@ -75,10 +75,10 @@ public class Frustum {
 
     public boolean intersectsSphere(Sphere sphere) {
         Vector3 center = sphere.center;
-        float negRadius = -sphere.radius;
+        double negRadius = -sphere.radius;
 
         for (int i = 0; i < 6; i++) {
-            float distance = planes[i].distanceToPoint(center);
+            double distance = planes[i].distanceToPoint(center);
             if (distance < negRadius) {
                 return false;
             }

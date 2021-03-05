@@ -6,10 +6,10 @@ import edu.three.math.Vector3;
 public class SpotLight extends Light {
     public Object3D target = new Object3D();
 
-    public float distance = 0;
-    public float angle = (float) Math.PI / 3;
-    public float penumbra = 0;
-    public float decay = 1;    //for physically correct lights, should be 2.
+    public double distance = 0;
+    public double angle = (double) Math.PI / 3;
+    public double penumbra = 0;
+    public double decay = 1;    //for physically correct lights, should be 2.
     SpotLightShadow shadow = new SpotLightShadow();
 
     public SpotLight(int color) {
@@ -22,7 +22,7 @@ public class SpotLight extends Light {
         updateMatrix();
     }
 
-    public SpotLight(int color, float intensity, float distance, float angle, float penumbra, float decay) {
+    public SpotLight(int color, float intensity, double distance, double angle, double penumbra, double decay) {
         this(color, intensity);
         this.distance = distance;
         this.angle = angle;
@@ -30,7 +30,7 @@ public class SpotLight extends Light {
         this.decay = decay;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 

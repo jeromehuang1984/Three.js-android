@@ -1266,7 +1266,7 @@ public class GLRenderer {
 
 //                        float[] boneMatrices = new float[sizeInt * sizeInt * 4];// 4 floats per RGBA pixel
                         // copy current values
-                        float[] boneMatrices = Arrays.copyOf(skeleton.boneMatrices, skeleton.boneMatrices.length);
+                        double[] boneMatrices = Arrays.copyOf(skeleton.boneMatrices, skeleton.boneMatrices.length);
 
                         DataTexture boneTexture = new DataTexture( boneMatrices, sizeInt, sizeInt, RGBAFormat, FloatType );
                         boneTexture.needsUpdate = true;

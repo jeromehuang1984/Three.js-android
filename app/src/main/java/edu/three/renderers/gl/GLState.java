@@ -36,10 +36,10 @@ public class GLState {
     boolean currentFlipSided;
     int currentCullFace = -1;
 
-    float currentLineWidth = -1f;
+    double currentLineWidth = -1f;
 
-    float currentPolygonOffsetFactor = -1f;
-    float currentPolygonOffsetUnits = -1f;
+    double currentPolygonOffsetFactor = -1f;
+    double currentPolygonOffsetUnits = -1f;
 
     int maxTextures;
     int version = 0;
@@ -214,7 +214,7 @@ public class GLState {
         currentCullFace = cullFace;
     }
 
-    public void setLineWidth(Float width) {
+    public void setLineWidth(float width) {
         if (width != currentLineWidth) {
             if (lineWidthAvailable) {
                 GLES30.glLineWidth(width);
@@ -456,13 +456,13 @@ public class GLState {
             locked = lock;
         }
 
-        public void setClear(float r, float g, float b, float a, boolean premultipliedAlpha) {
+        public void setClear(double r, double g, double b, double a, boolean premultipliedAlpha) {
             if (premultipliedAlpha) {
                 r *= a; g *= a; b *= a;
             }
             color.set(r, g, b, a);
             if (!color.equals(currentColorClear)) {
-                GLES30.glClearColor(r, g, b, a);
+                GLES30.glClearColor((float)r, (float)g, (float)b, (float)a);
                 currentColorClear.copy(color);
             }
         }
@@ -479,7 +479,7 @@ public class GLState {
         boolean locked = false;
         Boolean currentDepthMask = null;
         Integer currentDepthFunc = null;
-        float currentDepthClear;
+        double currentDepthClear;
 
         public DepthBuffer(GLState parent) {
             context = parent;

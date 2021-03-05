@@ -44,7 +44,7 @@ public class GLProperties {
     }
 
     public static class Fields {
-        public float[] clippingState = null;
+        public double[] clippingState = null;
         public int maxMipLevel;
         public boolean glInit = false;
         public Integer glTexture = null;

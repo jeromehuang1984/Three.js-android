@@ -5,12 +5,12 @@ import edu.three.math.MathTool;
 import edu.three.math.Vector4;
 
 public class PerspectiveCamera extends Camera {
-    public float fov = 50;
-    public float zoom = 1;
+    public double fov = 50;
+    public double zoom = 1;
 
-    float focus = 10;
+    double focus = 10;
 
-    public float aspect = 1;
+    public double aspect = 1;
 
     int filmGauge = 35; // width of the film (default in millimeters)
     int filmOffset = 0; // horizontal film offset (same unit as gauge)
@@ -24,7 +24,7 @@ public class PerspectiveCamera extends Camera {
         far = 2000;
     }
 
-    public PerspectiveCamera(float fov, float aspect, float near, float far) {
+    public PerspectiveCamera(double fov, double aspect, double near, double far) {
         this.fov = fov;
         this.near = near;
         this.far = far;
@@ -40,38 +40,38 @@ public class PerspectiveCamera extends Camera {
      *
      * Values for focal length and film gauge must have the same unit.
      */
-    public void setFocalLength(float focalLength) {
-        float vExtentSlope = 0.5f * getFilmHeight() / focalLength;
-        fov = MathTool.RAD2DEG * 2 * (float) Math.atan(vExtentSlope);
+    public void setFocalLength(double focalLength) {
+        double vExtentSlope = 0.5f * getFilmHeight() / focalLength;
+        fov = MathTool.RAD2DEG * 2 *  Math.atan(vExtentSlope);
         updateProjectionMatrix();
     }
     //Calculates the focal length from the current .fov and .filmGauge.
-    public float getFocalLength() {
-        float vExtentSlope = (float) Math.tan(MathTool.DEG2RAD * 0.5f * fov);
+    public double getFocalLength() {
+        double vExtentSlope =  Math.tan(MathTool.DEG2RAD * 0.5f * fov);
         return 0.5f * getFilmHeight() / vExtentSlope;
     }
-    public float getEffectiveFOV() {
-        return MathTool.RAD2DEG * 2 * (float) Math.atan(
+    public double getEffectiveFOV() {
+        return MathTool.RAD2DEG * 2 *  Math.atan(
                 Math.tan(MathTool.DEG2RAD * 0.5 * fov) / zoom
         );
     }
-    public float getFilmWidth() {
+    public double getFilmWidth() {
         // film not completely covered in portrait format (aspect < 1)
         return filmGauge * Math.min(aspect, 1);
     }
 
-    public float getFilmHeight() {
+    public double getFilmHeight() {
         // film not completely covered in landscape format (aspect > 1)
         return filmGauge / Math.max( this.aspect, 1 );
     }
     public void updateProjectionMatrix() {
-        float top = near * (float) Math.tan(MathTool.DEG2RAD * 0.5f * fov) / zoom;
-        float height = 2 * top;
-        float width = aspect * height;
-        float left = -0.5f * width;
+        double top = near *  Math.tan(MathTool.DEG2RAD * 0.5f * fov) / zoom;
+        double height = 2 * top;
+        double width = aspect * height;
+        double left = -0.5f * width;
         if (view != null && view.enabled) {
-            float fullWidth = view.fullWidth;
-            float fullHeight = view.fullHeight;
+            double fullWidth = view.fullWidth;
+            double fullHeight = view.fullHeight;
 
             left += view.offsetX * width / fullWidth;
             top -= view.offsetY * height / fullHeight;
@@ -85,7 +85,7 @@ public class PerspectiveCamera extends Camera {
         projectionMatrixInverse.getInverse(projectionMatrix);
     }
 
-    public void setViewOffset(float fullWidth, float fullHeight, float x, float y, float width, float height) {
+    public void setViewOffset(double fullWidth, double fullHeight, double x, double y, double width, double height) {
         aspect = fullWidth / fullHeight;
         if (view == null) {
             view = new View();

@@ -16,6 +16,11 @@ public class DirectionalLight extends Light {
         updateMatrix();
     }
 
+    public DirectionalLight setIntensity(float val) {
+        intensity = val;
+        return this;
+    }
+
     @Override
     public Light copy(Light source) {
         super.copy(source);

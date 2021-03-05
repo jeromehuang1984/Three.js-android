@@ -58,6 +58,9 @@ public class Texture extends EventDispatcher {
 
 	public Texture() {
         this(null, null, new Option());
+	}
+    public Texture(Bitmap image) {
+        this(image, null, new Option());
     }
 	public Texture(Bitmap image, Integer mapping, Option option) {
 	    id = textureId++;

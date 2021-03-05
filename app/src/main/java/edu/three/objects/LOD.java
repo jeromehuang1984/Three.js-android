@@ -30,7 +30,7 @@ public class LOD extends Object3D {
         return this;
     }
 
-    public Object3D getObjectForDistance(float distance) {
+    public Object3D getObjectForDistance(double distance) {
         int i;
         for (i = 1; i < levels.size(); i++) {
             if (distance < levels.get(i).distance) {
@@ -53,7 +53,7 @@ public class LOD extends Object3D {
     public void raycast(Raycaster raycaster, ArrayList<RaycastItem> intersects) {
         Vector3 matrixPosition = new Vector3();
         matrixPosition.setFromMatrixPosition(matrixWorld);
-        float distance = raycaster.ray.getOrigin().distanceTo(matrixPosition);
+        double distance = raycaster.ray.getOrigin().distanceTo(matrixPosition);
         getObjectForDistance(distance).raycast(raycaster, intersects);
     }
 
@@ -63,7 +63,7 @@ public class LOD extends Object3D {
         if (levels.size() > 1) {
             v1.setFromMatrixPosition(camera.getWorldMatrix());
             v2.setFromMatrixPosition(matrixWorld);
-            float distance = v1.distanceTo(v2);
+            double distance = v1.distanceTo(v2);
             levels.get(0).object.visible = true;
             int i;
             for (i = 1; i < levels.size(); i++) {

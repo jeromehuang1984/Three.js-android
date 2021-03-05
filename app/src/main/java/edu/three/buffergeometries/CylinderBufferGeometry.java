@@ -90,7 +90,7 @@ public class CylinderBufferGeometry extends BufferGeometry {
                 vertices[vCount++] = vx; vertices[vCount++] = vy; vertices[vCount++] = vz;
                 // normal
                 normal.set( sin, slope, cos ).normalize();
-                normals[nCount++] = normal.x; normals[nCount++] = normal.y; normals[nCount++] = normal.z;
+                normals[nCount++] = (float)normal.x; normals[nCount++] = (float)normal.y; normals[nCount++] = (float)normal.z;
 
                 // uv
                 uvs[uCount++] = u; uvs[uCount++] = 1 - v;

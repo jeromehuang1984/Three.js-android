@@ -103,7 +103,7 @@ public class SingleUniform extends Uniform {
             setValueFv((float[]) value);
         } else {
             switch ( type ) {
-                case 0x1406: setValueV1f( (Float) value); break; // FLOAT
+                case 0x1406: setValueV1f( (float)value); break; // FLOAT
                 case 0x8b50: setValueV2f((Vector2) value); break; // _VEC2
                 case 0x8b51:    // _VEC3
                     if (value instanceof Color) {
@@ -206,9 +206,9 @@ public class SingleUniform extends Uniform {
             cache = new float[2];
         } else {
             if (cache[0] != v.x || cache[1] != v.y) {
-                GLES30.glUniform2f(addr, v.x, v.y);
-                cache[ 0 ] = v.x;
-                cache[ 1 ] = v.y;
+                GLES30.glUniform2f(addr, (float)v.x, (float)v.y);
+                cache[ 0 ] = (float)v.x;
+                cache[ 1 ] = (float)v.y;
             }
         }
     }
@@ -218,10 +218,10 @@ public class SingleUniform extends Uniform {
             cache = new float[3];
         } else {
             if (cache[0] != v.x || cache[1] != v.y || cache[2] != v.z) {
-                GLES30.glUniform3f(addr, v.x, v.y, v.z);
-                cache[ 0 ] = v.x;
-                cache[ 1 ] = v.y;
-                cache[ 2 ] = v.z;
+                GLES30.glUniform3f(addr, (float)v.x, (float)v.y, (float)v.z);
+                cache[ 0 ] = (float)v.x;
+                cache[ 1 ] = (float)v.y;
+                cache[ 2 ] = (float)v.z;
             }
         }
     }
@@ -231,10 +231,10 @@ public class SingleUniform extends Uniform {
             cache = new float[3];
         } else {
             if (cache[0] != v.r || cache[1] != v.g || cache[2] != v.b) {
-                GLES30.glUniform3f(addr, v.r, v.g, v.b);
-                cache[ 0 ] = v.r;
-                cache[ 1 ] = v.g;
-                cache[ 2 ] = v.b;
+                GLES30.glUniform3f(addr, (float)v.r, (float)v.g, (float)v.b);
+                cache[ 0 ] = (float)v.r;
+                cache[ 1 ] = (float)v.g;
+                cache[ 2 ] = (float)v.b;
             }
         }
     }
@@ -244,11 +244,11 @@ public class SingleUniform extends Uniform {
             cache = new float[4];
         } else {
             if (cache[0] != v.x || cache[1] != v.y || cache[2] != v.z || cache[3] != v.w) {
-                GLES30.glUniform4f(addr, v.x, v.y, v.z, v.w);
-                cache[ 0 ] = v.x;
-                cache[ 1 ] = v.y;
-                cache[ 2 ] = v.z;
-                cache[ 3 ] = v.w;
+                GLES30.glUniform4f(addr, (float)v.x, (float)v.y, (float)v.z, (float)v.w);
+                cache[ 0 ] = (float)v.x;
+                cache[ 1 ] = (float)v.y;
+                cache[ 2 ] = (float)v.z;
+                cache[ 3 ] = (float)v.w;
             }
         }
     }
@@ -270,7 +270,7 @@ public class SingleUniform extends Uniform {
     }
 
     private void setValueM3(Matrix3 v) {
-        float[] elements = v.toArray();
+        float[] elements = v.toArrayF();
         if (cache == null) {
             cache = new float[9];
         } else {
@@ -286,7 +286,7 @@ public class SingleUniform extends Uniform {
     }
 
     private void setValueM4(Matrix4 v) {
-        float[] elements = v.toArray();
+        float[] elements = v.toArrayF();
         if (cache == null) {
             cache = new float[16];
         } else {

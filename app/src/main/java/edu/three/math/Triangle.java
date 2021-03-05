@@ -22,9 +22,9 @@ public class Triangle {
         ret.subVectors(c, b);
         v0.subVectors(a, b);
         ret.cross(v0);
-        float lengthSq = ret.lengthSq();
+        double lengthSq = ret.lengthSq();
         if (lengthSq > 0) {
-            return ret.multiplyScalar(1 / (float) Math.sqrt(lengthSq));
+            return ret.multiplyScalar(1 /  Math.sqrt(lengthSq));
         }
         return ret.set(0, 0, 0);
     }
@@ -53,13 +53,13 @@ public class Triangle {
         v1.subVectors( b, a );
         v2.subVectors( point, a );
 
-        float dot00 = v0.dot( v0 );
-        float dot01 = v0.dot( v1 );
-        float dot02 = v0.dot( v2 );
-        float dot11 = v1.dot( v1 );
-        float dot12 = v1.dot( v2 );
+        double dot00 = v0.dot( v0 );
+        double dot01 = v0.dot( v1 );
+        double dot02 = v0.dot( v2 );
+        double dot11 = v1.dot( v1 );
+        double dot12 = v1.dot( v2 );
 
-        float denom = ( dot00 * dot11 - dot01 * dot01 );
+        double denom = ( dot00 * dot11 - dot01 * dot01 );
 
         // collinear or singular triangle
         if ( denom == 0 ) {
@@ -69,9 +69,9 @@ public class Triangle {
 
         }
 
-        float invDenom = 1 / denom;
-        float u = ( dot11 * dot02 - dot01 * dot12 ) * invDenom;
-        float v = ( dot00 * dot12 - dot01 * dot02 ) * invDenom;
+        double invDenom = 1 / denom;
+        double u = ( dot11 * dot02 - dot01 * dot12 ) * invDenom;
+        double v = ( dot00 * dot12 - dot01 * dot02 ) * invDenom;
 
         // barycentric coordinates must always sum to 1
         return target.set( 1 - u - v, v, u );

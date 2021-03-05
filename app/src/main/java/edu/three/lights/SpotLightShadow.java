@@ -10,9 +10,9 @@ public class SpotLightShadow extends LightShadow {
     }
 
     public void update(SpotLight light) {
-        float fov = MathTool.RAD2DEG * 2 * light.angle;
-        float aspect = mapSize.x / mapSize.y;
-        float far = light.distance;
+        double fov = MathTool.RAD2DEG * 2 * light.angle;
+        double aspect = mapSize.x / mapSize.y;
+        double far = light.distance;
         if (far == 0) {
             far = camera.far;
         }

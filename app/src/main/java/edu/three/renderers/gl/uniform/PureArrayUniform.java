@@ -63,15 +63,15 @@ public class PureArrayUniform extends Uniform {
         for (int i = 0; i < nBlocks; i++) {
             Object obj = array.get(i);
             if (obj instanceof Vector2) {
-                ((Vector2) obj).toArray(ret, offset);
+                ((Vector2) obj).toArrayF(ret, offset);
             } else if (obj instanceof Vector3) {
-                ((Vector3) obj).toArray(ret, offset);
+                ((Vector3) obj).toArrayF(ret, offset);
             } else if (obj instanceof Vector4) {
-                ((Vector4) obj).toArray(ret, offset);
+                ((Vector4) obj).toArrayF(ret, offset);
             } else if (obj instanceof Matrix3) {
-                ((Matrix3) obj).toArray(ret, offset);
+                ((Matrix3) obj).toArrayF(ret, offset);
             } else if (obj instanceof Matrix4) {
-                ((Matrix4) obj).toArray(ret, offset);
+                ((Matrix4) obj).toArrayF(ret, offset);
             }
             offset += blockSize;
         }

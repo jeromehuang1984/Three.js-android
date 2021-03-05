@@ -27,6 +27,14 @@ public class EventDispatcher {
         return false;
     }
 
+    public boolean removeListeners(String type) {
+        if (listeners.containsKey(type)) {
+            listeners.remove(type);
+            return true;
+        }
+        return false;
+    }
+
     public void dispatchEvent(Event event) {
         ArrayList<IListener> lst = listeners.get(event.type);
         if (lst != null) {

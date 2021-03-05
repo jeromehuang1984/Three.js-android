@@ -4,23 +4,23 @@ import edu.three.cameras.Camera;
 import edu.three.core.BufferAttribute;
 
 public class Vector3 {
-    public float x,y,z;
+    public double x,y,z;
 
     public Vector3() {
 
     }
-    public Vector3(float x, float y, float z) {
+    public Vector3(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    public Vector3 setScalar(float scalar) {
+    public Vector3 setScalar(double scalar) {
         this.x = scalar;
         this.y = scalar;
         this.z = scalar;
         return this;
     }
-    public Vector3 addScalar(float scalar) {
+    public Vector3 addScalar(double scalar) {
         this.x += scalar;
         this.y += scalar;
         this.z += scalar;
@@ -50,17 +50,17 @@ public class Vector3 {
         this.z *= v.z;
         return this;
     }
-    public Vector3 multiplyScalar(float scalar) {
+    public Vector3 multiplyScalar(double scalar) {
         this.x *= scalar;
         this.y *= scalar;
         this.z *= scalar;
         return this;
     }
-    public Vector3 divideScalar(float scalar) {
+    public Vector3 divideScalar(double scalar) {
         return multiplyScalar(1 / scalar);
     }
     public Vector3 normalize() {
-        float len = length();
+        double len = length();
         if (len == 0) len = 1;
         return divideScalar(len);
     }
@@ -70,7 +70,7 @@ public class Vector3 {
         z = Math.round(z);
         return this;
     }
-    public Vector3 setLength(float length) {
+    public Vector3 setLength(double length) {
         return normalize().multiplyScalar(length);
     }
     public Vector3 multiplyVectors(Vector3 a, Vector3 b) {
@@ -79,18 +79,18 @@ public class Vector3 {
         this.z = a.z * b.z;
         return this;
     }
-    public Vector3 lerp(Vector3 v, float alpha) {
+    public Vector3 lerp(Vector3 v, double alpha) {
         x += (v.x - x) * alpha;
         y += (v.y - y) * alpha;
         z += (v.z - z) * alpha;
         return this;
     }
-    public float dot(Vector3 v) {
+    public double dot(Vector3 v) {
         return x * v.x + y * v.y + z * v.z;
     }
     public Vector3 crossVectors(Vector3 a, Vector3 b) {
-        float ax = a.x, ay = a.y, az = a.z;
-        float bx = b.x, by = b.y, bz = b.z;
+        double ax = a.x, ay = a.y, az = a.z;
+        double bx = b.x, by = b.y, bz = b.z;
         x = ay * bz - az * by;
         y = az * bx - ax * bz;
         z = ax * by - ay * bx;
@@ -99,21 +99,21 @@ public class Vector3 {
     public Vector3 cross(Vector3 v) {
         return crossVectors(this, v);
     }
-    public float distanceToSquared(Vector3 v) {
-        float dx = x - v.x, dy = y - v.y, dz = z - v.z;
+    public double distanceToSquared(Vector3 v) {
+        double dx = x - v.x, dy = y - v.y, dz = z - v.z;
         return dx * dx + dy * dy + dz * dz;
     }
-    public float distanceTo(Vector3 v) {
-        return (float) Math.sqrt(distanceToSquared(v));
+    public double distanceTo(Vector3 v) {
+        return Math.sqrt(distanceToSquared(v));
     }
-    public float manhattanDistanceTo(Vector3 v) {
+    public double manhattanDistanceTo(Vector3 v) {
         return Math.abs( x - v.x ) + Math.abs( y - v.y ) + Math.abs( z - v.z );
     }
-    public float lengthSq() {
+    public double lengthSq() {
         return x * x + y * y + z * z;
     }
-    public float length() {
-        return (float)Math.sqrt(lengthSq());
+    public double length() {
+        return (double)Math.sqrt(lengthSq());
     }
     public Vector3 negate() {
         x = -x;
@@ -121,7 +121,7 @@ public class Vector3 {
         z = -z;
         return this;
     }
-    public Vector3 set(float vx, float vy, float vz) {
+    public Vector3 set(double vx, double vy, double vz) {
         x = vx;
         y = vy;
         z = vz;
@@ -137,15 +137,15 @@ public class Vector3 {
         return new Vector3(x, y, z);
     }
     public Vector3 applyQuaternion(Quaternion q) {
-        float x = this.x, y = this.y, z = this.z;
-        float qx = q.x, qy = q.y, qz = q.z, qw = q.w;
+        double x = this.x, y = this.y, z = this.z;
+        double qx = q.x, qy = q.y, qz = q.z, qw = q.w;
 
         // calculate quat * vector
 
-        float ix = qw * x + qy * z - qz * y;
-        float iy = qw * y + qz * x - qx * z;
-        float iz = qw * z + qx * y - qy * x;
-        float iw = - qx * x - qy * y - qz * z;
+        double ix = qw * x + qy * z - qz * y;
+        double iy = qw * y + qz * x - qx * z;
+        double iz = qw * z + qx * y - qy * x;
+        double iw = - qx * x - qy * y - qz * z;
 
         // calculate result * inverse quat
 
@@ -171,9 +171,9 @@ public class Vector3 {
     }
 
     public Vector3 applyMatrix4(Matrix4 m) {
-        float x0 = this.x, y0 = this.y, z0 = this.z;
-        float[] e = m.te;
-        float w = 1 / ( e[ 3 ] * x0 + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] );
+        double x0 = this.x, y0 = this.y, z0 = this.z;
+        double[] e = m.te;
+        double w = 1 / ( e[ 3 ] * x0 + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] );
 
         x = ( e[ 0 ] * x0 + e[ 4 ] * y0 + e[ 8 ] * z0 + e[ 12 ] ) * w;
         y = ( e[ 1 ] * x0 + e[ 5 ] * y0 + e[ 9 ] * z0 + e[ 13 ] ) * w;
@@ -182,8 +182,8 @@ public class Vector3 {
     }
 
     public Vector3 applyMatrix3(Matrix3 m) {
-        float x = this.x, y = this.y, z = this.z;
-        float[] e = m.te;
+        double x = this.x, y = this.y, z = this.z;
+        double[] e = m.te;
 
         this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
         this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
@@ -192,10 +192,10 @@ public class Vector3 {
         return this;
     }
     //addScaledVector
-    public Vector3 addScaledVector(Vector3 v, float s) {
+    public Vector3 addScaledVector(Vector3 v, double s) {
         return addScale(v, s);
     }
-    public Vector3 addScale(Vector3 v, float s) {
+    public Vector3 addScale(Vector3 v, double s) {
         this.x += v.x * s;
         this.y += v.y * s;
         this.z += v.z * s;
@@ -206,8 +206,8 @@ public class Vector3 {
     public Vector3 transformDirection(Matrix4 m) {
         // input: THREE.Matrix4 affine matrix
         // vector interpreted as a direction
-        float[] e = m.te;
-        float x0 = this.x, y0 = this.y, z0 = this.z;
+        double[] e = m.te;
+        double x0 = this.x, y0 = this.y, z0 = this.z;
 
         this.x = e[ 0 ] * x0 + e[ 4 ] * y0 + e[ 8 ] * z0;
         this.y = e[ 1 ] * x0 + e[ 5 ] * y0 + e[ 9 ] * z0;
@@ -238,9 +238,9 @@ public class Vector3 {
     }
 
     public Vector3 setFromMatrixScale(Matrix4 m) {
-        float sx = this.setFromMatrixColumn( m, 0 ).length();
-        float sy = this.setFromMatrixColumn( m, 1 ).length();
-        float sz = this.setFromMatrixColumn( m, 2 ).length();
+        double sx = this.setFromMatrixColumn( m, 0 ).length();
+        double sy = this.setFromMatrixColumn( m, 1 ).length();
+        double sz = this.setFromMatrixColumn( m, 2 ).length();
 
         this.x = sx;
         this.y = sy;
@@ -253,12 +253,19 @@ public class Vector3 {
         return setFromSphericalCoords(s.radius, s.phi, s.theta);
     }
 
-    public Vector3 setFromSphericalCoords(float radius, float phi, float theta) {
-        float sinPhiRadius = (float)Math.sin(phi) * radius;
-        this.x = sinPhiRadius * (float)Math.sin( theta );
-        this.y = (float)Math.cos( phi ) * radius;
-        this.z = sinPhiRadius * (float)Math.cos( theta );
+    public Vector3 setFromSphericalCoords(double radius, double phi, double theta) {
+        double sinPhiRadius = (double)Math.sin(phi) * radius;
+        this.x = sinPhiRadius * (double)Math.sin( theta );
+        this.y = (double)Math.cos( phi ) * radius;
+        this.z = sinPhiRadius * (double)Math.cos( theta );
 
+        return this;
+    }
+    public Vector3 setFromSpherical2(Spherical2 s) {
+        double sinPhiRadius = (double)Math.sin(s.phi) * s.radius;
+        this.x = sinPhiRadius * (double)Math.sin( s.theta );
+        this.z = (double)Math.cos( s.phi ) * s.radius;
+        this.y = sinPhiRadius * (double)Math.cos( s.theta );
         return this;
     }
 
@@ -266,6 +273,16 @@ public class Vector3 {
         x = attribute.getX(index);
         y = attribute.getY(index);
         z = attribute.getZ(index);
+        return this;
+    }
+
+    public Vector3 fromArray(double[] array) {
+        return fromArray(array, 0);
+    }
+    public Vector3 fromArray(double[] array, int offset) {
+        x = array[ offset ];
+        y = array[ offset + 1 ];
+        z = array[ offset + 2 ];
         return this;
     }
 
@@ -279,7 +296,7 @@ public class Vector3 {
         return this;
     }
 
-    public float get(char field) {
+    public double get(char field) {
         if ('x' == field) {
             return x;
         } else if ('y' == field) {
@@ -290,7 +307,7 @@ public class Vector3 {
         return 0;
     }
 
-    public void setField(char field, float n) {
+    public void setField(char field, double n) {
         if ('x' == field) {
             x = n;
         } else if ('y' == field) {
@@ -315,10 +332,10 @@ public class Vector3 {
         return sub(v1.copy(normal).multiplyScalar(2 * dot(normal)));
     }
 
-    public float angleTo(Vector3 v) {
-        float theta = dot(v) / ( length() * v.length() );
+    public double angleTo(Vector3 v) {
+        double theta = dot(v) / ( length() * v.length() );
         // clamp, to handle numerical problems
-        return (float) Math.acos( MathTool.clamp( theta, - 1, 1 ) );
+        return (double) Math.acos( MathTool.clamp( theta, - 1, 1 ) );
     }
 
     public String toString() {
@@ -329,13 +346,23 @@ public class Vector3 {
         return ( ( v.x == x ) && ( v.y == y ) && ( v.z == z ) );
     }
 
-    public float[] toArray(float[] array, int offset) {
+    public double[] toArray(double[] array, int offset) {
         if (array == null) {
-            array = new float[3];
+            array = new double[3];
         }
         array[offset] = x;
         array[offset + 1] = y;
         array[offset + 2] = z;
+        return array;
+    }
+
+    public float[] toArrayF(float[] array, int offset) {
+        if (array == null) {
+            array = new float[3];
+        }
+        array[offset] = (float)x;
+        array[offset + 1] = (float)y;
+        array[offset + 2] = (float)z;
         return array;
     }
 
@@ -346,4 +373,6 @@ public class Vector3 {
         ret[2] = (int) z;
         return ret;
     }
+
+//    public String toFixed(int num) {}
 }

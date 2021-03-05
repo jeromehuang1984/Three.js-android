@@ -10,7 +10,7 @@ public class Box3 {
         makeEmpty();
     }
     public Box3(Vector3 min, Vector3 max) {
-        float Infinity = Float.POSITIVE_INFINITY;
+        double Infinity = Float.POSITIVE_INFINITY;
         this.min = ( min != null ) ? min : new Vector3( + Infinity, + Infinity, + Infinity );
         this.max = ( max != null ) ? max : new Vector3( - Infinity, - Infinity, - Infinity );
     }
@@ -44,18 +44,18 @@ public class Box3 {
     }
 
     public Box3 setFromBufferAttribute(BufferAttribute attribute) {
-        float minX = Float.POSITIVE_INFINITY;
-        float minY = Float.POSITIVE_INFINITY;
-        float minZ = Float.POSITIVE_INFINITY;
+        double minX = Float.POSITIVE_INFINITY;
+        double minY = Float.POSITIVE_INFINITY;
+        double minZ = Float.POSITIVE_INFINITY;
 
-        float maxX = Float.NEGATIVE_INFINITY;
-        float maxY = Float.NEGATIVE_INFINITY;
-        float maxZ = Float.NEGATIVE_INFINITY;
+        double maxX = Float.NEGATIVE_INFINITY;
+        double maxY = Float.NEGATIVE_INFINITY;
+        double maxZ = Float.NEGATIVE_INFINITY;
 
         for (int i = 0; i < attribute.getCount(); i++) {
-            float x = attribute.getX(i);
-            float y = attribute.getY(i);
-            float z = attribute.getZ(i);
+            double x = attribute.getX(i);
+            double y = attribute.getY(i);
+            double z = attribute.getZ(i);
 
             if ( x < minX ) minX = x;
             if ( y < minY ) minY = y;

@@ -1,7 +1,7 @@
 package edu.three.math;
 
 public class Vector4 {
-    public float x,y,z,w;
+    public double x,y,z,w;
 
     public int[] toIntArray() {
         int[] ret = new int[4];
@@ -12,9 +12,9 @@ public class Vector4 {
         return ret;
     }
 
-    public float[] toArray(float[] array, int offset) {
+    public double[] toArray(double[] array, int offset) {
         if (array == null) {
-            array = new float[4];
+            array = new double[4];
         }
         array[offset] = x;
         array[offset + 1] = y;
@@ -23,13 +23,24 @@ public class Vector4 {
         return array;
     }
 
+    public float[] toArrayF(float[] array, int offset) {
+        if (array == null) {
+            array = new float[3];
+        }
+        array[offset] = (float)x;
+        array[offset + 1] = (float)y;
+        array[offset + 2] = (float)z;
+        array[offset + 3] = (float)w;
+        return array;
+    }
+
     public Vector4() {}
 
-    public Vector4(float x, float y, float z, float w) {
+    public Vector4(double x, double y, double z, double w) {
         set(x, y, z, w);
     }
 
-    public Vector4 set(float x, float y, float z, float w) {
+    public Vector4 set(double x, double y, double z, double w) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -37,11 +48,11 @@ public class Vector4 {
         return this;
     }
 
-    public Vector4 divideScalar(float scalar) {
+    public Vector4 divideScalar(double scalar) {
         return multiplyScalar( 1 / scalar );
     }
 
-    public Vector4 multiplyScalar(float scalar) {
+    public Vector4 multiplyScalar(double scalar) {
         x *= scalar;
         y *= scalar;
         z *= scalar;
@@ -50,29 +61,29 @@ public class Vector4 {
         return this;
     }
 
-    public float manhattanLength() {
+    public double manhattanLength() {
         return Math.abs( x ) + Math.abs( y ) + Math.abs( z ) + Math.abs( w );
     }
 
-    public float length() {
-        return (float) Math.sqrt( x * x + y * y + z * z + w * w );
+    public double length() {
+        return  Math.sqrt( x * x + y * y + z * z + w * w );
     }
 
-    public float lengthSq() {
+    public double lengthSq() {
         return x * x + y * y + z * z + w * w;
     }
 
     public Vector4 normalize() {
-        float len = length();
+        double len = length();
         len = len == 0 ? 1 : len;
         return this.divideScalar( len );
     }
 
     public Vector4 floor() {
-        x = (float) Math.floor( x );
-        y = (float) Math.floor( y );
-        z = (float) Math.floor( z );
-        w = (float) Math.floor( w );
+        x =  Math.floor( x );
+        y =  Math.floor( y );
+        z =  Math.floor( z );
+        w =  Math.floor( w );
 
         return this;
     }

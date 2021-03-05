@@ -35,6 +35,7 @@ public class GLPrograms {
         shaderIDs.put("MeshDistanceMaterial", "distanceRGBA");
         shaderIDs.put("MeshNormalMaterial", "normal");
         shaderIDs.put("MeshBasicMaterial", "basic");
+        shaderIDs.put("Material4Heatmap", "basic");
         shaderIDs.put("MeshLambertMaterial", "lambert");
         shaderIDs.put("MeshPhongMaterial", "phong");
         shaderIDs.put("MeshToonMaterial", "phong");

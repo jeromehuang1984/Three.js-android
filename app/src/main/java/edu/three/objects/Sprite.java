@@ -19,6 +19,7 @@ import edu.three.math.Vector3;
 public class Sprite extends Object3D {
     public SpriteMaterial material1;
     public Vector2 center = new Vector2(0.5f, 0.5f);
+    public Vector3 globalPos = null;
 
     public Sprite(SpriteMaterial material) {
         geometry = new BufferGeometry();
@@ -110,7 +111,7 @@ public class Sprite extends Object3D {
 
         }
 
-        float distance = raycaster.ray.getOrigin().distanceTo( intersectPoint );
+        double distance = raycaster.ray.getOrigin().distanceTo( intersectPoint );
 
         if ( distance < raycaster.near || distance > raycaster.far ) return;
 

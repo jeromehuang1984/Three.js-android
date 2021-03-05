@@ -9,6 +9,12 @@ public class HemisphereLight extends Light {
     public int groundColor;
     public int skyColor;
 
+    public HemisphereLight(int groundColor, int skyColor, float intensity) {
+        this.groundColor = groundColor;
+        this.skyColor = skyColor;
+        this.intensity = intensity;
+    }
+
     public HemisphereLight copy(HemisphereLight light) {
         super.copy(light);
         groundColor = light.groundColor;

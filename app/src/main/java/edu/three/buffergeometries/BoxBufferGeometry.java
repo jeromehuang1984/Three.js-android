@@ -75,13 +75,13 @@ public class BoxBufferGeometry extends BufferGeometry {
                 vector.setField(v, y * vdir);
                 vector.setField(w, depthHalf);
                 // now apply vector to vertex buffer
-                vertices[vCount++] = vector.x; vertices[vCount++] = vector.y; vertices[vCount++] = vector.z;
+                vertices[vCount++] = (float)vector.x; vertices[vCount++] = (float)vector.y; vertices[vCount++] = (float)vector.z;
                 // set values to correct vector component
                 vector.setField(u, 0);
                 vector.setField(v, 0);
                 vector.setField(w, depth > 0 ? 1 : - 1);
                 // now apply vector to normal buffer
-                normals[nCount++] = vector.x; normals[nCount++] = vector.y; normals[nCount++] = vector.z;
+                normals[nCount++] = (float)vector.x; normals[nCount++] = (float)vector.y; normals[nCount++] = (float)vector.z;
                 // uvs
                 uvs[uCount++] = ix / gridX;
                 uvs[uCount++] = 1 - ( iy / gridY );

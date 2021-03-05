@@ -1,17 +1,23 @@
 package edu.three.math;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import edu.three.cameras.Camera;
+import edu.three.control.Screen;
 
 public class MathTool {
-    static public float PI = (float) Math.PI;
-    static public float PI2 = (float) Math.PI * 2;
-    static public float LN2 = (float) Math.log(2);
-    static public float SQ2 = (float) Math.sqrt(2);
-    static public float SQ3 = (float) Math.sqrt(3);
-    static public float SQRT1_2 = (float) Math.sqrt(2)/2;
-    static public float LOG2E = 1 / (float) Math.log(2);
-    static public float DEG2RAD = (float) Math.PI / 180;
-    static public float RAD2DEG = 180 / (float) Math.PI;
+    static public float PI =  (float)Math.PI;
+    static public double PI2 =  Math.PI * 2;
+    static public double PI_d2 =  Math.PI * 0.5;
+    static public float LN2 =  (float)Math.log(2);
+    static public double SQ2 =  Math.sqrt(2);
+    static public double SQ3 =  Math.sqrt(3);
+    static public double SQRT1_2 =  Math.sqrt(2)/2;
+    static public double LOG2E = 1 /  Math.log(2);
+    static public double DEG2RAD =  Math.PI / 180;
+    static public double RAD2DEG = 180 /  Math.PI;
+    static public double EPSILON = 2.22045e-16f;
 
     static public int sign(long val) {
         if (val > 0) {
@@ -21,7 +27,7 @@ public class MathTool {
         }
         return 0;
     }
-    static public int sign(float val) {
+    static public int sign(double val) {
         if (val > 0) {
             return 1;
         } else if (val < 0) {
@@ -30,12 +36,12 @@ public class MathTool {
         return 0;
     }
 
-    static public float ceilPowerOfTwo(float value) {
-        return (float) Math.pow(2, Math.ceil(Math.log(value) / LN2));
+    static public double ceilPowerOfTwo(double value) {
+        return  Math.pow(2, Math.ceil(Math.log(value) / LN2));
     }
 
-    static public float floorPowerOfTwo(float value) {
-        return (float) Math.pow(2, Math.floor(Math.log(value) / LN2));
+    static public double floorPowerOfTwo(double value) {
+        return  Math.pow(2, Math.floor(Math.log(value) / LN2));
     }
 
     static public boolean isPowerOfTwo(int value) {
@@ -62,9 +68,9 @@ public class MathTool {
         return min;
     }
 
-    static public float max(float... intArray) {
-        float max = Float.NEGATIVE_INFINITY;
-        for (float i : intArray) {
+    static public double max(double... intArray) {
+        double max = Float.NEGATIVE_INFINITY;
+        for (double i : intArray) {
             if (max < i) {
                 max = i;
             }
@@ -73,7 +79,7 @@ public class MathTool {
     }
 
     static public char getMainField(Vector3 vector) {
-        float max = MathTool.maxNoSign(vector.x, vector.y, vector.z);
+        double max = MathTool.maxNoSign(vector.x, vector.y, vector.z);
         if (max == vector.x) {
             return 'x';
         } else if (max == vector.y) {
@@ -82,10 +88,10 @@ public class MathTool {
         return 'z';
     }
 
-    static public float maxNoSign(float... floatArray) {
-        float max = Float.NEGATIVE_INFINITY;
+    static public double maxNoSign(double... floatArray) {
+        double max = Float.NEGATIVE_INFINITY;
         int sign = 1;
-        for (float i : floatArray) {
+        for (double i : floatArray) {
             if (max < Math.abs(i)) {
                 sign = sign(i);
                 max = Math.abs(i);
@@ -94,9 +100,9 @@ public class MathTool {
         return sign * max;
     }
 
-    static public float min(float... intArray) {
-        float min = Float.POSITIVE_INFINITY;
-        for (float i : intArray) {
+    static public double min(double... intArray) {
+        double min = Float.POSITIVE_INFINITY;
+        for (double i : intArray) {
             if (min > i) {
                 min = i;
             }
@@ -104,7 +110,7 @@ public class MathTool {
         return min;
     }
 
-    static public float roundAngle(float angle, float round) {
+    static public double roundAngle(double angle, double round) {
         return Math.round(angle / round) * round;
     }
 
@@ -126,7 +132,7 @@ public class MathTool {
         return -1;
     }
 
-    static public int indexOf(float[] arr, float value) {
+    static public int indexOf(double[] arr, double value) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == value) {
                 return i;
@@ -163,6 +169,14 @@ public class MathTool {
 
     static public int[] slice(int[] arr, int start, int end) {
         int[] target = new int[end - start];
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            target[count++] = arr[i];
+        }
+        return target;
+    }
+    static public Vector3[] slice(Vector3[] arr, int start, int end) {
+        Vector3[] target = new Vector3[end - start];
         int count = 0;
         for (int i = start; i < end; i++) {
             target[count++] = arr[i];
@@ -210,24 +224,95 @@ public class MathTool {
         return builder.toString();
     }
 
+    static public float[] flatten(List<Vector3> vertices) {
+        float[] target = new float[vertices.size() * 3];
+        int count = 0;
+        for(Vector3 vector : vertices) {
+            target[count++] = (float)vector.x;
+            target[count++] = (float)vector.y;
+            target[count++] = (float)vector.z;
+        }
+        return target;
+    }
+
     static public float[] flatten(Vector3[] vertices) {
         float[] target = new float[vertices.length * 3];
         int count = 0;
         for(Vector3 vector : vertices) {
-            target[count++] = vector.x;
-            target[count++] = vector.y;
-            target[count++] = vector.z;
+            target[count++] = (float)vector.x;
+            target[count++] = (float)vector.y;
+            target[count++] = (float)vector.z;
+        }
+        return target;
+    }
+
+    static public float[] flatten(Vector2[] vertices) {
+        float[] target = new float[vertices.length * 3];
+        int count = 0;
+        for(Vector2 vector : vertices) {
+            target[count++] = (float)vector.x;
+            target[count++] = (float)vector.y;
+        }
+        return target;
+    }
+
+    //已知一个点二维坐标（x, y)，由点（0，0）到点（x, y) 记为向量 a, 求向量 a 与 x 轴的夹角。
+    //其中约定从一个向量 (1, 0) 从旋转到 (0, 1) 为正的90度旋转，而任意一个向量从y轴到x轴为负的90度旋转
+    public static double getAngle(double x, double y) {
+        double a =  Math.atan2(y, x);
+        double ret = a * 180 / MathTool.PI; //弧度转角度，方便调试
+        if (ret > 360) {
+            ret -= 360;
+        }
+        if (ret < 0) {
+            ret += 360;
+        }
+        return ret;
+    }
+
+    static public double getMinNum(ArrayList<Double> numArr) {
+        double min = Double.POSITIVE_INFINITY;
+        for (double num : numArr) {
+            if (min > num)
+                min = num;
+        }
+        return min;
+    }
+
+//    public static PointXY transToScreenCoord(Vector3 vector, Camera camera, Screen screen) {
+//        PointXY screenCoord = new PointXY();
+//        Vector3 v = vector.clone().project(camera);
+//        screenCoord.x = (float)(0.5 + v.x / 2) * screen.width;
+//        screenCoord.y = (float)(0.5 - v.y / 2) * screen.height;
+//        return screenCoord;
+//    }
+
+    static public Vector2[] vector3s_vector2s(Vector3[] vectors) {
+        Vector2[] target = new Vector2[vectors.length];
+        for (int i = 0; i < vectors.length; i++) {
+            target[i] = new Vector2(vectors[i].x, vectors[i].y);
+        }
+        return target;
+     }
+
+    static public Vector3[] vector2s_vector3s(Vector2[] vectors) {
+        Vector3[] target = new Vector3[vectors.length];
+        for (int i = 0; i < vectors.length; i++) {
+            target[i] = new Vector3(vectors[i].x, vectors[i].y, 0);
         }
         return target;
     }
 
     // Clamp value to range <a, b>
-    static public float clamp(float x, float a, float b) {
+    static public double clamp(double x, double a, double b) {
         return ( x < a ) ? a : ( ( x > b ) ? b : x );
     }
+    static public double lerp(double fromVal, double toVal, double alpha) {
+        return fromVal + (toVal - fromVal) * alpha;
+    }
 
-    static public float sqrt(float value) {
-        return (float) Math.sqrt(value);
+    static public double sqrt(double value) {
+        return  Math.sqrt(value);
     }
 
     static public int[] concat(int[] first, int[] second) {
@@ -235,6 +320,16 @@ public class MathTool {
             return second;
         }
         int[] target = new int[first.length + second.length];
+        System.arraycopy(first, 0, target, 0, first.length);
+        System.arraycopy(second, 0, target, first.length, second.length);
+        return target;
+    }
+
+    static public Vector2[] concat(Vector2[] first, Vector2[] second) {
+        if (first == null) {
+            return second;
+        }
+        Vector2[] target = new Vector2[first.length + second.length];
         System.arraycopy(first, 0, target, 0, first.length);
         System.arraycopy(second, 0, target, first.length, second.length);
         return target;
@@ -252,28 +347,52 @@ public class MathTool {
         }
     }
 
-    static public void push(ArrayList lst, float... floatArr) {
-        for (float item : floatArr) {
+    static public void push(ArrayList lst, double... floatArr) {
+        for (double item : floatArr) {
+            lst.add((float)item);
+        }
+    }
+
+    static public void push(ArrayList lst, int... intArr) {
+        for (int item : intArr) {
             lst.add(item);
         }
     }
 
-    static public void push(ArrayList lst, int... floatArr) {
-        for (int item : floatArr) {
-            lst.add(item);
-        }
-    }
-
-    static public float[] reverseArr(float[] arr) {
-        float[] target = new float[arr.length];
+    static public double[] reverseArr(double[] arr) {
+        double[] target = new double[arr.length];
         for (int i = 0; i < arr.length; i++) {
             target[i] = arr[arr.length - 1 - i];
         }
         return target;
     }
 
+    static public Vector2[] reverseArr(Vector2[] arr) {
+        Vector2[] target = new Vector2[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            target[i] = arr[arr.length - 1 - i];
+        }
+        return target;
+    }
+
+    static public double[] toArrayDouble(ArrayList<Double> arrayList) {
+        double[] target = new double[arrayList.size()];
+        for (int i = 0; i < arrayList.size(); i++) {
+            target[i] = arrayList.get(i);
+        }
+        return target;
+    }
+
     static public float[] toArrayFloat(ArrayList<Float> arrayList) {
         float[] target = new float[arrayList.size()];
+        for (int i = 0; i < arrayList.size(); i++) {
+            target[i] = arrayList.get(i);
+        }
+        return target;
+    }
+
+    static public Vector3[] toArrayVector(ArrayList<Vector3> arrayList) {
+        Vector3[] target = new Vector3[arrayList.size()];
         for (int i = 0; i < arrayList.size(); i++) {
             target[i] = arrayList.get(i);
         }
@@ -295,6 +414,13 @@ public class MathTool {
         }
         return target;
     }
+    static public ArrayList<Vector3> toArrayList(Vector3[] arr) {
+        ArrayList<Vector3> target = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            target.add(arr[i]);
+        }
+        return target;
+    }
 
     static public Vector3[] offsetVertices(Vector3[] points, Vector3 deltaVector) {
         Vector3[] vertices = new Vector3[points.length];
@@ -304,9 +430,9 @@ public class MathTool {
         return vertices;
     }
 
-    static public int pointToBall(Vector3 point, Vector3 ballCenter, float radius) {
-        float rr = radius * radius;
-        float dd = point.distanceToSquared(ballCenter);
+    static public int pointToBall(Vector3 point, Vector3 ballCenter, double radius) {
+        double rr = radius * radius;
+        double dd = point.distanceToSquared(ballCenter);
         if (Math.abs(dd - rr ) < 0.1f) {
             return  1; //on sphere's surface
         }

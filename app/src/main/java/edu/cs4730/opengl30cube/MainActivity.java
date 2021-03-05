@@ -20,6 +20,7 @@ import java.lang.ref.WeakReference;
 import edu.cs4730.opengl30cube.renderer.BaseRender;
 import edu.cs4730.opengl30cube.renderer.LambertPhongLightRender;
 import edu.cs4730.opengl30cube.renderer.RaycastCameraControlView;
+import edu.cs4730.opengl30cube.renderer.SpriteTextDemo;
 import edu.cs4730.opengl30cube.renderer.TextureDemo;
 import edu.three.renderers.GLRenderer;
 import edu.util.RawShaderLoader;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-        int position = MainListItems.getIndex(RaycastCameraControlView.class);
+        int position = MainListItems.getIndex(SpriteTextDemo.class);
 //        int position = MainListItems.getIndex(LambertPhongLightRender.class);
         listView.performItemClick(adapter.getView(position, null, listView), position,
                 adapter.getItemId(position));

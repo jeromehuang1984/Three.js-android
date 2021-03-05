@@ -6,49 +6,48 @@ import edu.three.cameras.Camera;
 import edu.three.cameras.PerspectiveCamera;
 import edu.three.core.Event;
 import edu.three.core.EventDispatcher;
-import edu.three.interfaces.ITouch;
 import edu.three.math.Matrix4;
 import edu.three.math.Quaternion;
 import edu.three.math.Spherical;
 import edu.three.math.Vector2;
 import edu.three.math.Vector3;
 
-public class OrbitControls extends EventDispatcher implements ITouch {
+public class OrbitControls extends EventDispatcher implements ITouchable {
     State _state = State.NONE;
     State[] touches = new State[] {State.ROTATE, State.DOLLY_PAN};
-    float EPS = 0.000001f;
+    double EPS = 0.000001f;
     public boolean enabled = true;
 
     // Set to true to enable damping (inertia)
     // If damping is enabled, you must call controls.update() in your animation loop
     boolean enableDamping = false;
-    float dampingFactor = 0.05f;
+    double dampingFactor = 0.05f;
 
-    float minDistance = 0;
-    float maxDistance = Float.POSITIVE_INFINITY;
+    double minDistance = 0;
+    double maxDistance = Float.POSITIVE_INFINITY;
     // How far you can orbit vertically, upper and lower limits.
     // Range is 0 to Math.PI radians.
-    float minPolarAngle = 0; //radians
-    float maxPolarAngle = (float) Math.PI; //radians
+    double minPolarAngle = 0; //radians
+    double maxPolarAngle =  Math.PI; //radians
 
     // How far you can orbit horizontally, upper and lower limits.
     // If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
-    float minAzimuthAngle = Float.NEGATIVE_INFINITY;
-    float maxAzimuthAngle = Float.POSITIVE_INFINITY;
+    double minAzimuthAngle = Float.NEGATIVE_INFINITY;
+    double maxAzimuthAngle = Float.POSITIVE_INFINITY;
 
 
     // This option actually enables dollying in and out; left as "zoom" for backwards compatibility.
     // Set to false to disable zooming
 	boolean enableZoom = true;
-    float zoomSpeed = 1.0f;
+    double zoomSpeed = 1.0f;
 
     // Set to false to disable rotating
     boolean enableRotate = true;
-    float rotateSpeed = 1.0f;
+    double rotateSpeed = 1.0f;
 
     // Set to false to disable panning
 	boolean enablePan = true;
-	float panSpeed = 1.0f;
+	double panSpeed = 1.0f;
     boolean screenSpacePanning = false; // if true, pan in screen-space
 
     //    public Vector3 position, target, up;
@@ -56,7 +55,7 @@ public class OrbitControls extends EventDispatcher implements ITouch {
     Vector3 position0, target0, zoom0;
     Spherical spherical = new Spherical();
     Spherical sphericalDelta = new Spherical();
-    float scale = 1f;
+    double scale = 1f;
     Vector3 panOffset = new Vector3();
 
     Screen screen;
@@ -80,7 +79,7 @@ public class OrbitControls extends EventDispatcher implements ITouch {
     Quaternion quatInverse;
     Vector3 lastPosition = new Vector3();
     Quaternion lastQuaternion = new Quaternion();
-    float PI = (float) Math.PI, twoPI = 2 * PI;
+    double PI =  Math.PI, twoPI = 2 * PI;
 
     public boolean update() {
         Vector3 position = object.position;
@@ -97,7 +96,7 @@ public class OrbitControls extends EventDispatcher implements ITouch {
             spherical.phi += sphericalDelta.phi;
         }
         // restrict theta to be between desired limits
-        float min = minAzimuthAngle, max = maxAzimuthAngle;
+        double min = minAzimuthAngle, max = maxAzimuthAngle;
         if (min != Float.NEGATIVE_INFINITY && max != Float.POSITIVE_INFINITY &&
                 min != Float.POSITIVE_INFINITY && max != Float.NEGATIVE_INFINITY) {
             if ( min < - Math.PI )
@@ -178,22 +177,22 @@ public class OrbitControls extends EventDispatcher implements ITouch {
     Vector2 dollyStart = new Vector2();
     Vector2 dollyEnd = new Vector2();
     Vector2 dollyDelta = new Vector2();
-    float getZoomScale() {
-        return (float) Math.pow(0.95, zoomSpeed);
+    double getZoomScale() {
+        return  Math.pow(0.95, zoomSpeed);
     }
-    void rotateLeft(float angle) {
+    void rotateLeft(double angle) {
         sphericalDelta.theta -= angle;
     }
-    void rotateUp(float angle) {
+    void rotateUp(double angle) {
         sphericalDelta.phi -= angle;
     }
     Vector3 v = new Vector3();
-    void panLeft(float distance, Matrix4 objectMatrix) {
+    void panLeft(double distance, Matrix4 objectMatrix) {
         v.setFromMatrixColumn(objectMatrix, 0);// get X column of objectMatrix
         v.multiplyScalar(- distance);
         panOffset.add(v);
     }
-    void panUp(float distance, Matrix4 objectMatrix) {
+    void panUp(double distance, Matrix4 objectMatrix) {
         if (screenSpacePanning) {
             v.setFromMatrixColumn(objectMatrix, 1);
         } else {
@@ -206,10 +205,10 @@ public class OrbitControls extends EventDispatcher implements ITouch {
 
     // deltaX and deltaY are in pixels; right and down are positive
     // only for perspective camera
-    void pan(float deltaX, float deltaY) {
+    void pan(double deltaX, double deltaY) {
         Vector3 position = object.position;
         offset.copy(position).sub(target);
-        float targetDistance = offset.length();
+        double targetDistance = offset.length();
         // half of the fov is center to top of screen
         targetDistance *= Math.tan( ( ((PerspectiveCamera) object).fov / 2 ) * Math.PI / 180.0 );
 
@@ -218,10 +217,10 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         panUp( 2 * deltaY * targetDistance / screen.height, object.getModelMatrix() );
     }
 
-    void dollyOut(float dollyScale) {
+    void dollyOut(double dollyScale) {
         scale /= dollyScale;
     }
-    void dollyIn(float dollyScale) {
+    void dollyIn(double dollyScale) {
         scale *= dollyScale;
     }
 
@@ -229,8 +228,8 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         if (event.getPointerCount() == 1) {
             rotateStart.set(event.getX(), event.getY());
         } else {
-            float x = 0.5f * ( event.getX(0) + event.getX(1) );
-            float y = 0.5f * ( event.getY(0) + event.getY(1) );
+            double x = 0.5f * ( event.getX(0) + event.getX(1) );
+            double y = 0.5f * ( event.getY(0) + event.getY(1) );
             rotateStart.set( x, y );
         }
     }
@@ -238,15 +237,15 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         if (event.getPointerCount() == 1) {
             panStart.set(event.getX(), event.getY());
         } else {
-            float x = 0.5f * ( event.getX(0) + event.getX(1) );
-            float y = 0.5f * ( event.getY(0) + event.getY(1) );
+            double x = 0.5f * ( event.getX(0) + event.getX(1) );
+            double y = 0.5f * ( event.getY(0) + event.getY(1) );
             panStart.set( x, y );
         }
     }
     void handleTouchStartDolly(MotionEvent event) {
-        float dx = event.getX(0) - event.getX(1);
-        float dy = event.getY(0) - event.getY(1);
-        float distance = (float)Math.sqrt(dx*dx + dy*dy);
+        double dx = event.getX(0) - event.getX(1);
+        double dy = event.getY(0) - event.getY(1);
+        double distance = Math.sqrt(dx*dx + dy*dy);
         dollyStart.set(0, distance);
     }
     void handleTouchStartDollyPan(MotionEvent event) {
@@ -263,8 +262,8 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         if (event.getPointerCount() == 1) {
             rotateEnd.set(event.getX(), event.getY());
         } else {
-            float x = 0.5f * ( event.getX(0) + event.getX(1) );
-            float y = 0.5f * ( event.getY(0) + event.getY(1) );
+            double x = 0.5f * ( event.getX(0) + event.getX(1) );
+            double y = 0.5f * ( event.getY(0) + event.getY(1) );
             rotateEnd.set( x, y );
         }
         rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(rotateSpeed);
@@ -279,8 +278,8 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         if (event.getPointerCount() == 1) {
             panEnd.set(event.getX(), event.getY());
         } else {
-            float x = 0.5f * ( event.getX(0) + event.getX(1) );
-            float y = 0.5f * ( event.getY(0) + event.getY(1) );
+            double x = 0.5f * ( event.getX(0) + event.getX(1) );
+            double y = 0.5f * ( event.getY(0) + event.getY(1) );
             panEnd.set( x, y );
         }
         panDelta.subVectors(panEnd, panStart).multiplyScalar(panSpeed);
@@ -290,12 +289,12 @@ public class OrbitControls extends EventDispatcher implements ITouch {
     }
     void handleTouchMoveDolly(MotionEvent event) {
         if (event.getPointerCount() == 2 && dollyStart.y != 0) {
-            float dx = event.getX(0) - event.getX(1);
-            float dy = event.getY(0) - event.getY(1);
-            float distance = (float)Math.sqrt(dx*dx + dy*dy);
+            double dx = event.getX(0) - event.getX(1);
+            double dy = event.getY(0) - event.getY(1);
+            double distance = Math.sqrt(dx*dx + dy*dy);
             dollyEnd.set( 0, distance );
 
-            dollyDelta.set( 0, (float)Math.pow( dollyEnd.y / dollyStart.y, zoomSpeed ) );
+            dollyDelta.set( 0, Math.pow( dollyEnd.y / dollyStart.y, zoomSpeed ) );
 
             dollyOut( dollyDelta.y );
 
@@ -395,6 +394,10 @@ public class OrbitControls extends EventDispatcher implements ITouch {
         }
         _state = State.NONE;
         listeningTouchUp = false;
+    }
+
+    public void pointerDown(MotionEvent event) {
+
     }
 
     public void reset() {

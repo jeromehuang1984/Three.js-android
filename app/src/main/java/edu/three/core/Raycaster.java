@@ -17,9 +17,9 @@ public class Raycaster {
     Camera _camera;
     Vector3 origin;
     Vector3 direction;
-    public final float linePrecision = 1;
-    public float near;
-    public float far;
+    public final double linePrecision = 1;
+    public double near;
+    public double far;
     public Ray ray;
     public Config params = new Config();
 
@@ -27,7 +27,15 @@ public class Raycaster {
         ray = new Ray();
     }
 
-    public Raycaster(Vector3 origin, Vector3 direction, float near, float far) {
+    public Raycaster(Vector3 origin, Vector3 direction) {
+        this.origin = origin;
+        this.direction = direction;
+        near = 0;
+        far = Float.POSITIVE_INFINITY;
+        ray = new Ray().set(origin, direction);
+    }
+
+    public Raycaster(Vector3 origin, Vector3 direction, double near, double far) {
         this.origin = origin;
         this.direction = direction;
         this.near = near;

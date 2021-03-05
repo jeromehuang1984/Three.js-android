@@ -22,7 +22,7 @@ public class PointLight extends Light {
     // intensity = power per solid angle.
     // ref: equation (15) from https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
     public float getPower() {
-        return intensity * 4 * (float) Math.PI;
+        return (float)intensity * 4 * (float) Math.PI;
     }
 
     public void setPower(float power) {

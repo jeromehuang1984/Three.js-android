@@ -67,34 +67,34 @@ public class Geometry extends EventDispatcher implements IGeometry {
         boundingSphere.setFromPoints( vertices );
     }
 
-    public Geometry rotateX(float angle) {
+    public Geometry rotateX(double angle) {
         // rotate geometry around world x-axis
         _m1.makeRotationX(angle);
         applyMatrix(_m1);
         return this;
     }
 
-    public Geometry rotateY(float angle) {
+    public Geometry rotateY(double angle) {
         // rotate geometry around world y-axis
         _m1.makeRotationY(angle);
         applyMatrix(_m1);
         return this;
     }
 
-    public Geometry rotateZ(float angle) {
+    public Geometry rotateZ(double angle) {
         // rotate geometry around world z-axis
         _m1.makeRotationZ(angle);
         applyMatrix(_m1);
         return this;
     }
 
-    public Geometry translate(float x, float y, float z) {
+    public Geometry translate(double x, double y, double z) {
         _m1.makeTranslation(x, y, z);
         applyMatrix(_m1);
         return this;
     }
 
-    public Geometry scale(float x, float y, float z) {
+    public Geometry scale(double x, double y, double z) {
         // scale geometry
         _m1.makeScale( x, y, z );
         this.applyMatrix( _m1 );
@@ -118,8 +118,8 @@ public class Geometry extends EventDispatcher implements IGeometry {
     public Geometry normalize() {
         computeBoundingSphere();
         Vector3 center = boundingSphere.center;
-        float radius = boundingSphere.radius;
-        float s = radius == 0 ? 1 : 1f / radius;
+        double radius = boundingSphere.radius;
+        double s = radius == 0 ? 1 : 1f / radius;
         Matrix4 matrix4 = new Matrix4();
         matrix4.set(
             s, 0, 0, - s * center.x,

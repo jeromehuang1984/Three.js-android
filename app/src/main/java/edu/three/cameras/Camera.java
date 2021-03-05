@@ -8,7 +8,7 @@ public class Camera extends Object3D {
     public Matrix4 matrixWorldInverse = new Matrix4();
     public Matrix4 projectionMatrix = new Matrix4();
     public Matrix4 projectionMatrixInverse = new Matrix4();
-    public float[] projectionArr;
+    public double[] projectionArr;
 
     private static Camera instance;
     public static Camera getInstance(){
@@ -52,6 +52,6 @@ public class Camera extends Object3D {
         return this;
     }
 
-    public float near = 1;
-    public float far = 40;
+    public double near = 1;
+    public double far = 40;
 }

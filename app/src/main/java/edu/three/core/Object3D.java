@@ -10,6 +10,7 @@ import edu.three.materials.Material;
 import edu.three.materials.MeshDepthMaterial;
 import edu.three.materials.MeshDistanceMaterial;
 import edu.three.math.Box3;
+import edu.three.math.Euler;
 import edu.three.math.Matrix3;
 import edu.three.math.Matrix4;
 import edu.three.math.Quaternion;
@@ -27,6 +28,7 @@ public class Object3D extends EventDispatcher {
     public final long id = object3DId++;
     public final String uuid;
     public int renderOrder = 0;
+    public Object holder = null;
 
     public ICallback onBeforeRender = new ICallback() {
         @Override
@@ -44,6 +46,7 @@ public class Object3D extends EventDispatcher {
     private boolean matrixWorldNeedsUpdate = false;
     public Vector3 position = new Vector3();
     public Quaternion quaternion = new Quaternion();
+    public Euler rotation = new Euler();
     public Vector3 scale = new Vector3(1, 1, 1);
 
     protected Matrix4 matrixWorld = new Matrix4();
@@ -67,8 +70,23 @@ public class Object3D extends EventDispatcher {
     public MeshDepthMaterial customDepthMaterial = null;
     public MeshDistanceMaterial customDistanceMaterial = null;
 
+    IUpdate onRotationChange = new IUpdate() {
+        @Override
+        public void updated() {
+            quaternion.setFromEuler(rotation, false);
+        }
+    };
+    IUpdate onQuaternionChange = new IUpdate() {
+        @Override
+        public void updated() {
+            rotation.setFromQuaternion(quaternion);
+        }
+    };
+
     public Object3D() {
         uuid = UUID.randomUUID().toString();
+        quaternion.onChange(onQuaternionChange);
+        rotation.onChange(onRotationChange);
     }
 
     public void applyMatrix(Matrix4 matrix) {
@@ -94,7 +112,7 @@ public class Object3D extends EventDispatcher {
     }
 
     // assumes axis is normalized
-    public void setRotationFromAxisAngle(Vector3 axis, float angle) {
+    public void setRotationFromAxisAngle(Vector3 axis, double angle) {
         quaternion.setFromAxisAngle( axis, angle );
     }
     // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
@@ -108,7 +126,7 @@ public class Object3D extends EventDispatcher {
 
     // rotate object on axis in object space
     // axis is assumed to be normalized
-    public Object3D rotateOnAxis(Vector3 axis, float angle) {
+    public Object3D rotateOnAxis(Vector3 axis, double angle) {
         Quaternion q1 = new Quaternion();
         q1.setFromAxisAngle(axis, angle);
         quaternion.multiply(q1);
@@ -118,43 +136,43 @@ public class Object3D extends EventDispatcher {
     // rotate object on axis in world space
     // axis is assumed to be normalized
     // method assumes no rotated parent
-    public Object3D rotateOnWorldAxis(Vector3 axis, float angle) {
+    public Object3D rotateOnWorldAxis(Vector3 axis, double angle) {
         Quaternion q1 = new Quaternion();
         q1.setFromAxisAngle(axis, angle);
         quaternion.premultiply( q1 );
         return this;
     }
 
-    public Object3D rotateX(float angle) {
+    public Object3D rotateX(double angle) {
         return rotateOnAxis(new Vector3(1, 0, 0), angle);
     }
 
-    public Object3D rotateY(float angle) {
+    public Object3D rotateY(double angle) {
         return rotateOnAxis(new Vector3(0, 1, 0), angle);
     }
 
-    public Object3D rotateZ(float angle) {
+    public Object3D rotateZ(double angle) {
         return rotateOnAxis(new Vector3(0, 0, 1), angle);
     }
 
     // translate object by distance along axis in object space
     // axis is assumed to be normalized
-    public Object3D translateOnAxis(Vector3 axis, float distance) {
+    public Object3D translateOnAxis(Vector3 axis, double distance) {
         Vector3 v1 = new Vector3();
         v1.copy(axis).applyQuaternion(quaternion);
         position.add(v1.multiplyScalar(distance));
         return this;
     }
 
-    public Object3D translateX(float distance) {
+    public Object3D translateX(double distance) {
         return translateOnAxis(new Vector3(1, 0, 0), distance);
     }
 
-    public Object3D translateY(float distance) {
+    public Object3D translateY(double distance) {
         return translateOnAxis(new Vector3(0, 1, 0), distance);
     }
 
-    public Object3D translateZ(float distance) {
+    public Object3D translateZ(double distance) {
         return translateOnAxis(new Vector3(0, 0, 1), distance);
     }
 
@@ -291,7 +309,7 @@ public class Object3D extends EventDispatcher {
 
     public Vector3 getWorldDirection(Vector3 target) {
         updateMatrixWorld(true);
-        float[] e = matrixWorld.te;
+        double[] e = matrixWorld.te;
         return target.set( e[ 8 ], e[ 9 ], e[ 10 ] ).normalize();
     }
 
@@ -315,7 +333,7 @@ public class Object3D extends EventDispatcher {
         }
     }
 
-    public float[] getDrawMatrixElements() {
+    public double[] getDrawMatrixElements() {
         return modelViewMatrix.toArray();
     }
 
@@ -360,7 +378,7 @@ public class Object3D extends EventDispatcher {
 
     }
 
-    public float[] morphTargetInfluences = new float[0];
+    public double[] morphTargetInfluences = new double[0];
     public HashMap<String, Integer> morphTargetDictionary = new HashMap<>();
 
     public BufferGeometry geometry = null;

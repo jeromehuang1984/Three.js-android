@@ -6,8 +6,7 @@ import android.view.MotionEvent;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import edu.three.control.TrackballControls;
-import edu.three.interfaces.ITouch;
+import edu.three.control.ITouchable;
 import edu.three.renderers.GLRenderer;
 
 public class BaseRender implements GLSurfaceView.Renderer {
@@ -17,7 +16,7 @@ public class BaseRender implements GLSurfaceView.Renderer {
     protected String TAG = getClass().getSimpleName();
     protected GLRenderer renderer;
 
-    protected ITouch controls;
+    protected ITouchable controls;
     protected GLSurfaceView mView;
 
     //

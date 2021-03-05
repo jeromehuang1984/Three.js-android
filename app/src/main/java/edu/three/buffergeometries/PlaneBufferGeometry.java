@@ -13,6 +13,9 @@ public class PlaneBufferGeometry extends BufferGeometry {
     float[] uvs;
     int iCount, vCount, nCount, uCount;
 
+    public PlaneBufferGeometry(float width, float height) {
+        this(new PlaneParam(width, height));
+    }
     public PlaneBufferGeometry(PlaneParam planeParam) {
         param = planeParam;
         float widthHalf = param.width / 2;

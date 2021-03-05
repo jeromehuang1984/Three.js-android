@@ -8,6 +8,9 @@ public class InterleavedBufferAttribute extends BufferAttribute {
         normalized = true;
     }
 
+    public InterleavedBufferAttribute(InterleavedBuffer interleavedBuffer, int itemSize, int offset) {
+        this(interleavedBuffer, itemSize, offset, true);
+    }
     public InterleavedBufferAttribute(InterleavedBuffer interleavedBuffer, int itemSize, int offset, boolean normalized) {
         data = interleavedBuffer;
         arrayFloat = data.array;

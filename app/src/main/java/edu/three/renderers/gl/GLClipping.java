@@ -6,14 +6,14 @@ import edu.three.math.Matrix4;
 import edu.three.math.Plane;
 
 public class GLClipping {
-    float[] globalState = null;
+    double[] globalState = null;
     public int numGlobalPlanes;
     boolean localClippingEnabled = false;
     boolean renderingShadows = false;
     Plane plane = new Plane();
     Matrix3 viewNormalMatrix = new Matrix3();
 
-    public float[] uniformValue = null;
+    public double[] uniformValue = null;
     public boolean uniformNeedsUpdate = false;
 
     public int numPlanes = 0;
@@ -57,7 +57,7 @@ public class GLClipping {
         } else {
             int nGlobal = renderingShadows ? 0 : numGlobalPlanes;
             int lGlobal = nGlobal * 4;
-            float[] dstArray = cache.clippingState;
+            double[] dstArray = cache.clippingState;
             uniformValue = dstArray;
             dstArray = projectPlanes(planes, camera, lGlobal, fromCache);
 
@@ -70,13 +70,13 @@ public class GLClipping {
         }
     }
 
-    public float[] projectPlanes() {
+    public double[] projectPlanes() {
         return projectPlanes(null, null, 0, false);
     }
 
-    public float[] projectPlanes(Plane[] planes, Camera camera, int dstOffset, boolean skipTransform) {
+    public double[] projectPlanes(Plane[] planes, Camera camera, int dstOffset, boolean skipTransform) {
         int nPlanes = planes != null ? planes.length : 0;
-        float[] dstArray = null;
+        double[] dstArray = null;
         if (nPlanes != 0) {
             dstArray = uniformValue;
             if (!skipTransform || dstArray == null) {
@@ -85,7 +85,7 @@ public class GLClipping {
 
                 viewNormalMatrix.getNormalMatrix(viewMatrix);
                 if (dstArray == null || dstArray.length < flatSize) {
-                    dstArray = new float[flatSize];
+                    dstArray = new double[flatSize];
                 }
                 for (int i = 0, i4 = dstOffset; i < nPlanes; i++, i4 += 4) {
                     plane.copy(planes[i]).applyMatrix4(viewMatrix, viewNormalMatrix);

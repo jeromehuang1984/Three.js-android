@@ -61,10 +61,10 @@ public class SphereBufferGeometry extends BufferGeometry {
                 vertex.x = - radius * (float) Math.cos( phiStart + u * phiLength ) * (float) Math.sin( thetaStart + v * thetaLength );
                 vertex.y = radius * (float) Math.cos( thetaStart + v * thetaLength );
                 vertex.z = radius * (float) Math.sin( phiStart + u * phiLength ) * (float) Math.sin( thetaStart + v * thetaLength );
-                vertices[vCount++]=vertex.x; vertices[vCount++]=vertex.y; vertices[vCount++]=vertex.z;
+                vertices[vCount++]=(float)vertex.x; vertices[vCount++]=(float)vertex.y; vertices[vCount++]=(float)vertex.z;
                 // normal
                 vertex.normalize();
-                normals[nCount++]=vertex.x; normals[nCount++]=vertex.y; normals[nCount++]=vertex.z;
+                normals[nCount++]=(float)vertex.x; normals[nCount++]=(float)vertex.y; normals[nCount++]=(float)vertex.z;
                 // uv
                 uvs[uCount++] = u + uOffset; uvs[uCount++] = 1 - v;
                 indexRow[count++] = index++;

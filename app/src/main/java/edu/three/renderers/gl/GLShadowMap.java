@@ -131,8 +131,8 @@ public class GLShadowMap {
             shadowMapSize.copy( shadow.mapSize );
             shadowMapSize.min( maxShadowMapSize );
             if (isPointLight) {
-                float vpWidth = shadowMapSize.x;
-                float vpHeight = shadowMapSize.y;
+                double vpWidth = shadowMapSize.x;
+                double vpHeight = shadowMapSize.y;
 
                 // These viewports map a cube-map onto a 2D texture with the
                 // following orientation:
@@ -277,7 +277,7 @@ public class GLShadowMap {
     }
 
     private Material getDepthMaterial(Object3D object, Material material, boolean isPointLight,
-                                               Vector3 lightPositionWorld, float shadowCameraNear, float shadowCameraFar) {
+                                               Vector3 lightPositionWorld, double shadowCameraNear, double shadowCameraFar) {
         BufferGeometry geometry = object.geometry;
         Material ret = null;
         Material[] materialVariants = depthMaterials;

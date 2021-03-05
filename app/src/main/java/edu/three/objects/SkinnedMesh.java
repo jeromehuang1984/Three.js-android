@@ -52,7 +52,7 @@ public class SkinnedMesh extends Mesh {
             vector.z = skinWeight.getZ( i );
             vector.w = skinWeight.getW( i );
 
-            float scale = 1.0f / vector.manhattanLength();
+            double scale = 1d / vector.manhattanLength();
 
             if ( scale != Float.POSITIVE_INFINITY ) {
                 vector.multiplyScalar( scale );

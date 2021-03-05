@@ -261,7 +261,7 @@ public class Mesh extends Object3D {
         intersectionPointWorld.copy( point );
         intersectionPointWorld.applyMatrix4( object.getWorldMatrix() );
 
-        float distance = raycaster.ray.getOrigin().distanceTo( intersectionPointWorld );
+        double distance = raycaster.ray.getOrigin().distanceTo( intersectionPointWorld );
 
         if ( distance < raycaster.near || distance > raycaster.far ) return null;
         RaycastItem item = new RaycastItem();
@@ -278,7 +278,7 @@ public class Mesh extends Object3D {
         context.vB.fromBufferAttribute( position, b );
         context.vC.fromBufferAttribute( position, c );
 
-        float[] morphInfluences = object.morphTargetInfluences;
+        double[] morphInfluences = object.morphTargetInfluences;
 
         if ( material.morphTargets && morphPosition != null && morphInfluences != null) {
             context.morphA.set( 0, 0, 0 );
@@ -287,7 +287,7 @@ public class Mesh extends Object3D {
 
             for ( int i = 0, il = morphPosition.size(); i < il; i ++ ) {
 
-                float influence = morphInfluences[ i ];
+                double influence = morphInfluences[ i ];
                 BufferAttribute morphAttribute = morphPosition.get(i);
 
                 if ( influence == 0 ) continue;

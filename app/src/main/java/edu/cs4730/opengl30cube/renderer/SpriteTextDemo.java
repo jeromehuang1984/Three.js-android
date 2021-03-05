@@ -76,6 +76,10 @@ public class SpriteTextDemo extends BaseRender {
     Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     Canvas canvas = new Canvas(bitmap);
     canvas.drawText(text, 0,-metrics.ascent, p);
+
+//    p.setStyle(Paint.Style.STROKE);
+//    p.setStrokeWidth(4);
+//    canvas.drawRect(0, 0, width, height, p);
     return bitmap;
   }
 
@@ -91,9 +95,10 @@ public class SpriteTextDemo extends BaseRender {
     GLRenderer.Param param = new GLRenderer.Param();
     param.antialias = true;
     renderer = new GLRenderer(param, mWidth, mHeight);
-    renderer.setClearColor(0x000000, 1);
+    renderer.setClearColor(0xf4f4f4, 1);
 
-    Bitmap bitmap = drawText("模型120", new TextStyleVO(0xff00bbaa, 24));
+//    Bitmap bitmap = drawText("模型120", new TextStyleVO(0xff00bbaa, 24));
+    Bitmap bitmap = drawText("新希望国际A", new TextStyleVO(0xff000000, 24));  //b5 新希望国际A
     Texture texture = new Texture();
     texture.setImage(bitmap);
 
@@ -101,7 +106,7 @@ public class SpriteTextDemo extends BaseRender {
     material.map = texture;
     material.depthTest = material.depthWrite = false;
     Sprite sprite = new Sprite(material);
-    sprite.scale.set(3, 3*bitmap.getHeight()/((float) bitmap.getWidth()), 1);
+    sprite.scale.set(bitmap.getWidth() * 0.03f, bitmap.getHeight() * 0.03f, 1);
 //    sprite.scale.set(bitmap.getWidth()/(mHeight*2f), bitmap.getHeight()/(mHeight*2f), 1);
     scene.add(sprite);
 

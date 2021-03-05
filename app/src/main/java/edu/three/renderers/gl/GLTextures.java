@@ -2,9 +2,6 @@ package edu.three.renderers.gl;
 
 import android.graphics.Bitmap;
 import android.opengl.GLES30;
-import android.opengl.GLES31;
-import android.opengl.GLES31Ext;
-import android.opengl.GLES32;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -251,8 +248,7 @@ public class GLTextures {
                 initTexture(textureProperties, texture);
                 state.activeTexture(GLES30.GL_TEXTURE0 + slot);
                 state.bindTexture(GLES30.GL_TEXTURE_CUBE_MAP, textureProperties.glTexture);
-
-//                GLES30.glPixelStorei( GLES30.GL_UNPACK_FLIP_Y_WEBGL, texture.flipY );
+//                GLES30.pixelStorei( GLES30.GL_UNPACK_FLIP_Y_WEBGL, texture.flipY );
                 boolean isCompressed = false;
                 boolean isDataTexture = false;
                 if (texture.textures.length > 0) {

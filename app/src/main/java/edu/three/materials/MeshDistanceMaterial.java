@@ -6,8 +6,8 @@ import edu.three.textures.Texture;
 public class MeshDistanceMaterial extends Material {
     //skinning
     public Vector3 referencePosition = new Vector3();
-    public float nearDistance = 1f;
-    public float farDistance = 1000f;
+    public double nearDistance = 1f;
+    public double farDistance = 1000f;
 
     //morphTargets
 
@@ -16,8 +16,8 @@ public class MeshDistanceMaterial extends Material {
 //    public Texture alphaMap = null;
 
     //displacementMap
-    public float displacementScale = 1;
-    public float displacementBias = 0;
+    public double displacementScale = 1;
+    public double displacementBias = 0;
 
 //    public boolean fog = false;
 //    public boolean lights = false;

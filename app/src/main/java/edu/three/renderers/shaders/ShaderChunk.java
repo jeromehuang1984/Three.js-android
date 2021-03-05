@@ -1,11 +1,10 @@
 package edu.three.renderers.shaders;
 
-import edu.cs4730.opengl30cube.R;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import edu.cs4730.opengl30cube.R;
 import edu.util.RawShaderLoader;
 
 public class ShaderChunk {
@@ -111,6 +110,10 @@ public class ShaderChunk {
     static public String equirect_vert = RawShaderLoader.fetch(R.raw.lib_equirect_vert);
     static public String linedashed_frag = RawShaderLoader.fetch(R.raw.lib_linedashed_frag);
     static public String linedashed_vert = RawShaderLoader.fetch(R.raw.lib_linedashed_vert);
+
+    static public String line_frag = RawShaderLoader.fetch(R.raw.lib_line_frag);
+    static public String line_vert = RawShaderLoader.fetch(R.raw.lib_line_vert);
+
     static public String meshbasic_frag = RawShaderLoader.fetch(R.raw.lib_meshbasic_frag);
     static public String meshbasic_vert = RawShaderLoader.fetch(R.raw.lib_meshbasic_vert);
     static public String meshlambert_frag = RawShaderLoader.fetch(R.raw.lib_meshlambert_frag);

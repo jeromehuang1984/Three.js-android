@@ -14,25 +14,25 @@ import edu.three.materials.Material;
 import edu.three.math.MathTool;
 
 public class GLMorphtargets {
-    Comparator<float[]> absNumericalSort = new Comparator<float[]>() {
+    Comparator<double[]> absNumericalSort = new Comparator<double[]>() {
         @Override
-        public int compare(float[] a, float[] b) {
+        public int compare(double[] a, double[] b) {
             return MathTool.sign(Math.abs( b[ 1 ] ) - Math.abs( a[ 1 ] ));
         }
     };
 
-    float[] morphInfluences = new float[8];
-    HashMap<Long, float[][]> influencesList = new HashMap<>();
+    double[] morphInfluences = new double[8];
+    HashMap<Long, double[][]> influencesList = new HashMap<>();
 
     public void update(Object3D object, BufferGeometry geometry, Material material, GLProgram program) {
-        float[] objectInfluences = object.morphTargetInfluences;
+        double[] objectInfluences = object.morphTargetInfluences;
         int length = objectInfluences.length;
-        float[][] influences = influencesList.get(geometry.id);
+        double[][] influences = influencesList.get(geometry.id);
         if (influences == null) {
             // initialise list
-            influences = new float[length][];
+            influences = new double[length][];
             for (int i = 0; i < length; i++) {
-                influences[ i ] = new float[] { i, 0 };
+                influences[ i ] = new double[] { i, 0 };
             }
             influencesList.put(geometry.id, influences);
         }
@@ -42,7 +42,7 @@ public class GLMorphtargets {
 
         // Remove current morphAttributes
         for (int i = 0; i < length; i++) {
-            float[] influence = influences[i];
+            double[] influence = influences[i];
             if (influence[1] != 0) {
                 if (morphTargets != null) {
                     geometry.removeAttribute("morphTarget" + i);
@@ -55,19 +55,19 @@ public class GLMorphtargets {
 
         // Collect influences
         for (int i = 0; i < length; i++) {
-            float[] influence = influences[i];
+            double[] influence = influences[i];
             influence[0] = i;
             influence[1] = objectInfluences[i];
         }
-        List<float[]> list = Arrays.asList(influences);
+        List<double[]> list = Arrays.asList(influences);
         Collections.sort(list, absNumericalSort);
 
         // Add morphAttributes
         for (int i = 0; i < 8; i++) {
-            float[] influence = influences[i];
+            double[] influence = influences[i];
             if (influence != null) {
                 int index = (int) influence[0];
-                float value = influence[1];
+                double value = influence[1];
                 if (value > 0) {
                     if (morphTargets != null) {
                         geometry.addAttribute("morphTarget" + i, morphTargets.get(index));

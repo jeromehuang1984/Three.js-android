@@ -3,7 +3,7 @@ package edu.three.cameras;
 import edu.three.core.Object3D;
 
 public class OrthographicCamera extends Camera {
-    float zoom = 1;
+    double zoom = 1;
     View view = null;
 
     int left = -1;
@@ -15,7 +15,7 @@ public class OrthographicCamera extends Camera {
         near = 0.1f;
         far = 2000;
     }
-    public OrthographicCamera(int left, int right, int top, int bottom, float near, float far) {
+    public OrthographicCamera(int left, int right, int top, int bottom, double near, double far) {
         this.left = left;
         this.right = right;
         this.top = top;
@@ -25,20 +25,20 @@ public class OrthographicCamera extends Camera {
     }
 
     public void updateProjectionMatrix() {
-        float dx = (right - left) / (2 * zoom);
-        float dy = (top - bottom) / (2 * zoom);
-        float cx = (right + left) / 2;
-        float cy = (top + bottom) / 2;
-        float left = cx - dx;
-        float right = cx + dx;
-        float top = cy + dy;
-        float bottom = cy - dy;
+        double dx = (right - left) / (2 * zoom);
+        double dy = (top - bottom) / (2 * zoom);
+        double cx = (right + left) / 2;
+        double cy = (top + bottom) / 2;
+        double left = cx - dx;
+        double right = cx + dx;
+        double top = cy + dy;
+        double bottom = cy - dy;
 
         if (view != null && view.enabled) {
-            float zoomW = zoom / (view.width / view.fullWidth);
-            float zoomH = zoom / (view.height / view.fullHeight);
-            float scaleW = (right - left) / view.width;
-            float scaleH = (top - bottom) / view.height;
+            double zoomW = zoom / (view.width / view.fullWidth);
+            double zoomH = zoom / (view.height / view.fullHeight);
+            double scaleW = (right - left) / view.width;
+            double scaleH = (top - bottom) / view.height;
 
             left += scaleW * (view.offsetX / zoomW);
             right = left + scaleW * (view.width / zoomW);
@@ -49,7 +49,7 @@ public class OrthographicCamera extends Camera {
         projectionMatrixInverse.getInverse(projectionMatrix);
     }
 
-    public void setViewOffset(float fullWidth, float fullHeight, float x, float y, float width, float height) {
+    public void setViewOffset(double fullWidth, double fullHeight, double x, double y, double width, double height) {
         if (view == null) {
             view = new View();
         }

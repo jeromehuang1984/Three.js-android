@@ -2,17 +2,17 @@ package edu.three.cameras;
 
 public class View {
     public boolean enabled = true;
-    float fullWidth = 1;
-    float fullHeight = 1;
-    float offsetX = 0;
-    float offsetY = 0;
-    float width = 1;
-    float height = 1;
+    double fullWidth = 1;
+    double fullHeight = 1;
+    double offsetX = 0;
+    double offsetY = 0;
+    double width = 1;
+    double height = 1;
 
     public View() {}
 
-    public View(boolean enabled, float fullWidth, float fullHeight,
-                float offsetX, float offsetY, float width, float height) {
+    public View(boolean enabled, double fullWidth, double fullHeight,
+                double offsetX, double offsetY, double width, double height) {
         this.enabled = enabled;
         this.fullWidth = fullWidth;
         this.fullHeight = fullHeight;

@@ -122,8 +122,8 @@ public class GLRenderLists {
             return renderItem;
         }
 
-        public void push(Object3D object, BufferGeometry geometry, Material material, int groupOrder, float z, GroupItem group) {
-            RenderItem renderItem = getNextRenderItem(object, geometry, material, groupOrder, z, group);
+        public void push(Object3D object, BufferGeometry geometry, Material material, int groupOrder, double z, GroupItem group) {
+            RenderItem renderItem = getNextRenderItem(object, geometry, material, groupOrder, (float)z, group);
             if (material.transparent) {
                 transparent.add(renderItem);
             } else {

@@ -48,7 +48,7 @@ public class Line extends Object3D {
         if (geometry.getIndex() == null) {
             BufferAttribute postion = geometry.position;
             float[] lineDistances = new float[postion.getCount()];
-            for (int i = 0; i < postion.getCount(); i++) {
+            for (int i = 1; i < postion.getCount(); i++) {
                 start.fromBufferAttribute(postion, i - 1);
                 end.fromBufferAttribute(postion, i);
                 lineDistances[ i ] = lineDistances[ i - 1 ];
@@ -65,7 +65,7 @@ public class Line extends Object3D {
         Matrix4 inverseMatrix = new Matrix4().getInverse(matrixWorld);
         Ray ray = new Ray();
         Sphere sphere = new Sphere();
-        float precision = raycaster.linePrecision;
+        double precision = raycaster.linePrecision;
         if (geometry.boundingSphere == null) {
             geometry.computeBoundingSphere();
         }
@@ -78,8 +78,8 @@ public class Line extends Object3D {
         }
 
         ray.copy(raycaster.ray).applyMatrix4(inverseMatrix);
-        float localPrecision = precision / ( ( scale.x + scale.y + scale.z ) / 3 );
-        float localPrecisionSq = localPrecision * localPrecision;
+        double localPrecision = precision / ( ( scale.x + scale.y + scale.z ) / 3 );
+        double localPrecisionSq = localPrecision * localPrecision;
 
         Vector3 vStart = new Vector3();
         Vector3 vEnd = new Vector3();
@@ -97,12 +97,12 @@ public class Line extends Object3D {
                 int b = indices[i + 1];
                 vStart.fromArray(positions, a * 3);
                 vEnd.fromArray(positions, b * 3);
-                float distSq = ray.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
+                double distSq = ray.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
 
                 if ( distSq > localPrecisionSq ) continue;
 
                 interRay.applyMatrix4(matrixWorld); //Move back to world space for distance calculation
-                float distance = raycaster.ray.getOrigin().distanceTo(interRay);
+                double distance = raycaster.ray.getOrigin().distanceTo(interRay);
                 if (distance < raycaster.near || distance > raycaster.far) continue;
 
                 RaycastItem item = new RaycastItem();
@@ -119,9 +119,9 @@ public class Line extends Object3D {
             for (int i = 0; i < positions.length / 3 - 1; i += step) {
                 vStart.fromArray(positions, 3 * i);
                 vEnd.fromArray(positions, 3 * i + 3);
-                float distSq = ray.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
+                double distSq = ray.distanceSqToSegment( vStart, vEnd, interRay, interSegment );
                 interRay.applyMatrix4(matrixWorld); //Move back to world space for distance calculation
-                float distance = raycaster.ray.getOrigin().distanceTo( interRay );
+                double distance = raycaster.ray.getOrigin().distanceTo( interRay );
                 if ( distance < raycaster.near || distance > raycaster.far ) continue;
                 RaycastItem item = new RaycastItem();
                 item.distance = distance;

@@ -173,13 +173,13 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
 
             center.copy(_box.getCenter());
 
-            float maxRadiusSq = 0;
+            double maxRadiusSq = 0;
             for (int i = 0; i < position.getCount(); i++) {
                 _vector.fromBufferAttribute(position, i);
                 maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector));
             }
 
-            boundingSphere.radius = (float) Math.sqrt( maxRadiusSq );
+            boundingSphere.radius = (double) Math.sqrt( maxRadiusSq );
         }
     }
 
@@ -195,7 +195,7 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return groups;
     }
 
-    public BufferGeometry rotateX(float angle) {
+    public BufferGeometry rotateX(double angle) {
         // rotate geometry around world x-axis
         _m1.makeRotationX( angle );
 
@@ -203,7 +203,7 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return this;
     }
 
-    public BufferGeometry rotateY(float angle) {
+    public BufferGeometry rotateY(double angle) {
         // rotate geometry around world y-axis
         _m1.makeRotationY( angle );
 
@@ -211,7 +211,7 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return this;
     }
 
-    public BufferGeometry rotateZ(float angle) {
+    public BufferGeometry rotateZ(double angle) {
         // rotate geometry around world z-axis
         _m1.makeRotationZ( angle );
 
@@ -219,13 +219,13 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return this;
     }
 
-    public BufferGeometry translate(float x, float y, float z) {
+    public BufferGeometry translate(double x, double y, double z) {
         _m1.makeTranslation(x, y, z);
         applyMatrix(_m1);
         return this;
     }
 
-    public BufferGeometry scale(float x, float y, float z) {
+    public BufferGeometry scale(double x, double y, double z) {
         _m1.makeScale(x, y, z);
         applyMatrix(_m1);
         return this;
@@ -259,9 +259,9 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         int count = 0;
         for (int i = 0; i < points.length; i++) {
             Vector3 point = points[i];
-            position[count++] = point.x;
-            position[count++] = point.y;
-            position[count++] = point.z;
+            position[count++] = (float)point.x;
+            position[count++] = (float)point.y;
+            position[count++] = (float)point.z;
         }
         this.position = new BufferAttribute().setArray(position);
         return this;
@@ -275,7 +275,7 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return ret;
     }
 
-    public String log(float[] arr) {
+    public String log(double[] arr) {
         String ret = "";
         for (int i = 0; i < arr.length; i++) {
             ret += arr[i] + " ";
@@ -375,17 +375,17 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
                 ab.subVectors( pA, pB );
                 cb.cross( ab );
 
-                normals[ i ] = cb.x;
-                normals[ i + 1 ] = cb.y;
-                normals[ i + 2 ] = cb.z;
+                normals[ i ] = (float)cb.x;
+                normals[ i + 1 ] = (float)cb.y;
+                normals[ i + 2 ] = (float)cb.z;
 
-                normals[ i + 3 ] = cb.x;
-                normals[ i + 4 ] = cb.y;
-                normals[ i + 5 ] = cb.z;
+                normals[ i + 3 ] = (float)cb.x;
+                normals[ i + 4 ] = (float)cb.y;
+                normals[ i + 5 ] = (float)cb.z;
 
-                normals[ i + 6 ] = cb.x;
-                normals[ i + 7 ] = cb.y;
-                normals[ i + 8 ] = cb.z;
+                normals[ i + 6 ] = (float)cb.x;
+                normals[ i + 7 ] = (float)cb.y;
+                normals[ i + 8 ] = (float)cb.z;
 
             }
 

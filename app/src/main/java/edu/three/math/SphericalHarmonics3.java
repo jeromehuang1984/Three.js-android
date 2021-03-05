@@ -33,9 +33,9 @@ public class SphericalHarmonics3 {
     // target is a Vector3
     public Vector3 getAt(Vector3 normal, Vector3 target) {
         // normal is assumed to be unit length
-        float x = normal.x;
-        float y = normal.y;
-        float z = normal.z;
+        double x = normal.x;
+        double y = normal.y;
+        double z = normal.z;
         Vector3[] coeff = coefficients;
         //band 0
         target.copy(coeff[0]).multiplyScalar(0.282095f);
@@ -60,9 +60,9 @@ public class SphericalHarmonics3 {
     // https://graphics.stanford.edu/papers/envmap/envmap.pdf
     public Vector3 getIrradianceAt(Vector3 normal, Vector3 target) {
         // normal is assumed to be unit length
-        float x = normal.x;
-        float y = normal.y;
-        float z = normal.z;
+        double x = normal.x;
+        double y = normal.y;
+        double z = normal.z;
         Vector3[] coeff = coefficients;
         // band 0
         target.copy( coeff[ 0 ] ).multiplyScalar( 0.886227f ); // π * 0.282095
@@ -89,14 +89,14 @@ public class SphericalHarmonics3 {
         return this;
     }
 
-    public SphericalHarmonics3 scale(float s) {
+    public SphericalHarmonics3 scale(double s) {
         for (int i = 0; i < 9; i++) {
             coefficients[i].multiplyScalar(s);
         }
         return this;
     }
 
-    public SphericalHarmonics3 lerp(SphericalHarmonics3 sh, float alpha) {
+    public SphericalHarmonics3 lerp(SphericalHarmonics3 sh, double alpha) {
         for (int i = 0; i < 9; i++) {
             coefficients[i].lerp(sh.coefficients[i], alpha);
         }
@@ -121,7 +121,7 @@ public class SphericalHarmonics3 {
         return new SphericalHarmonics3().copy(this);
     }
 
-    public SphericalHarmonics3 fromArray(float[] array) {
+    public SphericalHarmonics3 fromArray(double[] array) {
         for ( int i = 0; i < 9; i ++ ) {
             coefficients[ i ].fromArray( array, i * 3 );
         }
@@ -129,8 +129,8 @@ public class SphericalHarmonics3 {
         return this;
     }
 
-    public float[] toArray() {
-        float[] array = new float[27];
+    public double[] toArray() {
+        double[] array = new double[27];
         for ( int i = 0; i < 9; i ++ ) {
             coefficients[ i ].toArray( array, i * 3 );
         }
@@ -139,8 +139,8 @@ public class SphericalHarmonics3 {
 
     // evaluate the basis functions
     // shBasis is an Array[ 9 ]
-    public void getBasisAt(Vector3 normal, float[] shBasis) {
-        float x = normal.x, y = normal.y, z = normal.z;
+    public void getBasisAt(Vector3 normal, double[] shBasis) {
+        double x = normal.x, y = normal.y, z = normal.z;
 
         // band 0
         shBasis[ 0 ] = 0.282095f;

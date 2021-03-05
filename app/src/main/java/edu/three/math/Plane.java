@@ -3,15 +3,15 @@ package edu.three.math;
 public class Plane {
     public String name;
     public Vector3 normal = new Vector3();
-    public float constant;
+    public double constant;
 
-    public Plane set(Vector3 normal, float constant) {
+    public Plane set(Vector3 normal, double constant) {
         this.normal.copy(normal);
         this.constant = constant;
         return this;
     }
 
-    public Plane setComponents(float x, float y, float z, float w) {
+    public Plane setComponents(double x, double y, double z, double w) {
         normal.set(x, y, z);
         constant = w;
         return this;
@@ -41,7 +41,7 @@ public class Plane {
 
     public Plane normalize() {
         // Note: will lead to a divide by zero if the plane is invalid.
-        float inverseNormalLength = 1f / normal.length();
+        double inverseNormalLength = 1f / normal.length();
         normal.multiplyScalar(inverseNormalLength);
         constant *= inverseNormalLength;
         return this;
@@ -53,11 +53,11 @@ public class Plane {
         return this;
     }
 
-    public float distanceToPoint(Vector3 point) {
+    public double distanceToPoint(Vector3 point) {
         return normal.dot(point) + constant;
     }
 
-    public float distanceToSphere(Sphere sphere) {
+    public double distanceToSphere(Sphere sphere) {
         return distanceToPoint(sphere.center) - sphere.radius;
     }
 
@@ -74,7 +74,7 @@ public class Plane {
             target = new Vector3();
         }
         Vector3 direction = line.delta(v1);
-        float denominator = normal.dot(direction);
+        double denominator = normal.dot(direction);
         if (denominator == 0) {
             // line is coplanar, return origin
             if (distanceToPoint(line.start) == 0) {
@@ -84,7 +84,7 @@ public class Plane {
             return null;
         }
 
-        float t = -(line.start.dot(normal) + constant) / denominator;
+        double t = -(line.start.dot(normal) + constant) / denominator;
         if (t < 0 || t > 1) {
             return null;
         }
@@ -93,8 +93,8 @@ public class Plane {
 
     // Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
     public boolean intersectsLine(Line3 line) {
-        float startSign = distanceToPoint(line.start);
-        float endSign = distanceToPoint(line.end);
+        double startSign = distanceToPoint(line.start);
+        double endSign = distanceToPoint(line.end);
         return ( startSign < 0 && endSign > 0 ) || ( endSign < 0 && startSign > 0 );
     }
 

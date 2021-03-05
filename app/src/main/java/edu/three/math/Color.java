@@ -30,6 +30,16 @@ public class Color {
         return (int)( r * 255 ) << 16 ^ (int)( g * 255 ) << 8 ^ (int)( b * 255 ) << 0;
     }
 
+    public Color fromArray(float[] array) {
+        return fromArray(array, 0);
+    }
+    public Color fromArray(float[] array, int offset) {
+        r = array[ offset ];
+        g = array[ offset + 1 ];
+        b = array[ offset + 2 ];
+        return this;
+    }
+
     public Color copy(Color color) {
         this.r = color.r;
         this.g = color.g;

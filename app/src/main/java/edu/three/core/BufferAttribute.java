@@ -1,6 +1,10 @@
 package edu.three.core;
 
+import java.util.ArrayList;
+
 import edu.three.math.Color;
+import edu.three.math.MathTool;
+import edu.three.math.Matrix4;
 import edu.three.math.Vector2;
 import edu.three.math.Vector3;
 
@@ -68,8 +72,33 @@ public class BufferAttribute {
         return this;
     }
 
+    public BufferAttribute setArrayList(ArrayList<Float> list) {
+        return setArray(MathTool.toArrayFloat(list) );
+    }
+
+    public BufferAttribute setArrayIntList(ArrayList<Integer> list) {
+        return setArray(MathTool.toArrayInt(list) );
+    }
+
     public BufferAttribute setDynamic(Boolean value) {
         dynamic = value;
+        return this;
+    }
+
+    public BufferAttribute applyMatrix4(Matrix4 m) {
+        Vector3 _vector = new Vector3();
+        for ( int i = 0, l = this.count; i < l; i ++ ) {
+
+            _vector.x = this.getX( i );
+            _vector.y = this.getY( i );
+            _vector.z = this.getZ( i );
+
+            _vector.applyMatrix4( m );
+
+            this.setXYZ( i, (float)_vector.x, (float)_vector.y, (float)_vector.z );
+
+        }
+
         return this;
     }
 
@@ -166,8 +195,8 @@ public class BufferAttribute {
         arrayFloat = new float[vectors.length * 2];
         for (int i = 0; i < vectors.length; i++) {
             Vector2 vector = vectors[i];
-            arrayFloat[offset++] = vector.x;
-            arrayFloat[offset++] = vector.y;
+            arrayFloat[offset++] = (float)vector.x;
+            arrayFloat[offset++] = (float)vector.y;
         }
         return this;
     }
@@ -178,9 +207,9 @@ public class BufferAttribute {
         arrayFloat = new float[vectors.length * 3];
         for (int i = 0; i < vectors.length; i++) {
             Vector3 vector = vectors[i];
-            arrayFloat[offset++] = vector.x;
-            arrayFloat[offset++] = vector.y;
-            arrayFloat[offset++] = vector.z;
+            arrayFloat[offset++] = (float)vector.x;
+            arrayFloat[offset++] = (float)vector.y;
+            arrayFloat[offset++] = (float)vector.z;
         }
         return this;
     }
@@ -265,6 +294,24 @@ public class BufferAttribute {
         return this;
     }
 
+    public BufferAttribute setXYZ(int index, double x, double y, double z) {
+        int ind = index * itemSize;
+        arrayFloat[ind] = (float)x;
+        arrayFloat[ind + 1] = (float)y;
+        arrayFloat[ind + 2] = (float)z;
+        return this;
+    }
+
+    public BufferAttribute setXYZW(int index, double x, double y, double z, double w) {
+        int ind = index * itemSize;
+        arrayFloat[ind] = (float)x;
+        arrayFloat[ind + 1] = (float)y;
+        arrayFloat[ind + 2] = (float)z;
+        arrayFloat[ind + 3] = (float)w;
+        return this;
+    }
+
+
     public BufferAttribute setXYZW(int index, float x, float y, float z, float w) {
         int ind = index * itemSize;
         arrayFloat[ind] = x;
@@ -282,9 +329,9 @@ public class BufferAttribute {
             bufferType = TYPE_FLOAT;
         }
         for (int i = 0; i < vector3s.length; i++) {
-            arrayFloat[i*3] = vector3s[i].x;
-            arrayFloat[i*3 + 1] = vector3s[i].y;
-            arrayFloat[i*3 + 2] = vector3s[i].z;
+            arrayFloat[i*3] = (float)vector3s[i].x;
+            arrayFloat[i*3 + 1] = (float)vector3s[i].y;
+            arrayFloat[i*3 + 2] = (float)vector3s[i].z;
         }
         return this;
     }
