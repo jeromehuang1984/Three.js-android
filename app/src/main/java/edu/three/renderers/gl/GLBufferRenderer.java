@@ -21,6 +21,11 @@ public class GLBufferRenderer {
         info.update(count, mode, 0);
     }
 
+    public void renderInstances(int start, int count, int primcount) {
+        GLES30.glDrawArraysInstanced(mode, start, count, primcount);
+        info.update(count, mode, primcount);
+    }
+
     public void renderInstances(BufferGeometry geometry, int start, int count) {
         GLES30.glDrawArraysInstanced(mode, start, count, geometry.maxInstancedCount());
         info.update(count, mode, geometry.maxInstancedCount());

@@ -1,6 +1,5 @@
 package edu.three.renderers.gl;
 
-import android.nfc.Tag;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import edu.three.core.Object3D;
 import edu.three.lights.Light;
 import edu.three.materials.Material;
 import edu.three.materials.MeshStandardMaterial;
+import edu.three.objects.InstancedMesh;
 import edu.three.renderers.GLRenderTarget;
 import edu.three.renderers.GLRenderer;
 import edu.three.renderers.shaders.ShaderLib;
@@ -49,7 +49,7 @@ public class GLPrograms {
         shaderIDs.put("SpriteMaterial", "sprite");
 
         parameterNames = new String[] {
-                "precision", "supportsVertexTextures", "map", "mapEncoding", "matcap", "matcapEncoding", "envMap", "envMapMode", "envMapEncoding",
+                "precision", "supportsVertexTextures", "instancing", "instancingColor", "map", "mapEncoding", "matcap", "matcapEncoding", "envMap", "envMapMode", "envMapEncoding",
                 "lightMap", "aoMap", "emissiveMap", "emissiveMapEncoding", "bumpMap", "normalMap", "objectSpaceNormalMap", "displacementMap", "specularMap",
                 "roughnessMap", "metalnessMap", "gradientMap",
                 "alphaMap", "combine", "vertexColors", "vertexTangents", "fog", "useFog", "fogExp",
@@ -91,6 +91,8 @@ public class GLPrograms {
         Param param = new Param();
         param.shaderID = shaderID;
         param.precision = precision;
+        param.instancing = object instanceof InstancedMesh;
+        param.instancingColor = (object instanceof InstancedMesh) && ((InstancedMesh)object).instanceColor != null;
         param.supportsVertexTextures = capabilities.vertexTextures;
         GLRenderTarget renderTarget = renderer.getRenderTarget();
         param.outputEncoding = getTextureEncoding( ( renderTarget == null ) ?
@@ -250,6 +252,8 @@ public class GLPrograms {
     static public class Param {
         public String shaderID;
         public String precision;
+        public boolean instancing;
+        public boolean instancingColor;
         public boolean supportsVertexTextures;
         public int outputEncoding;
         public boolean map;

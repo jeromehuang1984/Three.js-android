@@ -43,6 +43,12 @@ public class Matrix4 {
         }
         return this;
     }
+    public Matrix4 fromArray(float[] array, int offset) {
+        for ( int i = 0; i < 16; i ++ ) {
+            te[ i ] = array[ i + offset ];
+        }
+        return this;
+    }
 
     public Matrix4 clone() {
         return new Matrix4().fromArray(te, 0);

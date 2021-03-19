@@ -65,7 +65,7 @@ public class Curve {
     cache[0] = 0;
 
     for (int p = 1; p <= divisions; p++) {
-      current = getPoint(p/divisions);
+      current = getPoint((double) p/divisions);
       sum += current.distanceTo(last);
       cache[p] = sum;
       last = current;

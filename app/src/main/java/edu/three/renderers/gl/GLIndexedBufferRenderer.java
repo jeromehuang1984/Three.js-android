@@ -22,6 +22,11 @@ public class GLIndexedBufferRenderer extends GLBufferRenderer {
         info.update(count, mode, 0);
     }
 
+    public void renderInstances(int start, int count, int primcount) {
+        GLES30.glDrawElementsInstanced(mode, count, type, start * bytesPerElement, primcount);
+        info.update(count, mode, primcount);
+    }
+
     public void renderInstances(BufferGeometry geometry, int start, int count) {
         GLES30.glDrawElementsInstanced(mode, count, type, start * bytesPerElement, geometry.maxInstancedCount());
         info.update(count, mode, geometry.maxInstancedCount());

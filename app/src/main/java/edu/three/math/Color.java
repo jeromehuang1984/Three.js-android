@@ -40,6 +40,13 @@ public class Color {
         return this;
     }
 
+    public float[] toArray(float[] array, int offset) {
+        array[ offset ] = r;
+        array[ offset + 1] = g;
+        array[ offset + 2] = b;
+        return array;
+    }
+
     public Color copy(Color color) {
         this.r = color.r;
         this.g = color.g;

@@ -54,6 +54,7 @@ import edu.three.objects.Bone;
 import edu.three.objects.Group;
 import edu.three.objects.GroupItem;
 import edu.three.objects.ImmediateRenderObject;
+import edu.three.objects.InstancedMesh;
 import edu.three.objects.LOD;
 import edu.three.objects.Line;
 import edu.three.objects.LineLoop;
@@ -207,7 +208,7 @@ public class GLRenderer {
         textures = new GLTextures(state, properties, capabilities, info);
         attributes = new GLAttributes();
         geometries = new GLGeometries(attributes, info);
-        objects = new GLObjects(geometries, info);
+        objects = new GLObjects(geometries, attributes, info);
         morphtargets = new GLMorphtargets();
         programCache = new GLPrograms(this, capabilities);
         background = new GLBackground(this, state, objects, param.premultipliedAlpha);
@@ -588,6 +589,9 @@ public class GLRenderer {
             morphtargets.update(object, geometry, material, program);
             updateBuffers = true;
         }
+        if (object instanceof InstancedMesh) {
+            updateBuffers = true;
+        }
 
         BufferAttribute index = geometry.getIndex();
         BufferAttribute position = geometry.position;
@@ -669,7 +673,9 @@ public class GLRenderer {
             renderer.setMode( GLES30.GL_TRIANGLES );
         }
 
-        if (geometry != null && geometry instanceof InstancedBufferGeometry) {
+        if (object instanceof InstancedMesh) {
+            renderer.renderInstances((int)drawStart, (int)drawCount, ((InstancedMesh)object).count);
+        } else if (geometry != null && geometry instanceof InstancedBufferGeometry) {
             if (((InstancedBufferGeometry) geometry).maxInstancedCount > 0) {
                 renderer.renderInstances(geometry, (int)drawStart, (int)drawCount);
             }

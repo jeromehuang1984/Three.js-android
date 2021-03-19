@@ -93,6 +93,11 @@ public class SingleUniform extends Uniform {
 //        }
 //    }
 
+    float toFloat(Object value) {
+        if (value instanceof Double)
+            return ((Number)value).floatValue();
+        return (float) value;
+    }
     public void setValue(Object value, GLTextures textures) {
         if (value == null) {
             return;
@@ -103,7 +108,7 @@ public class SingleUniform extends Uniform {
             setValueFv((float[]) value);
         } else {
             switch ( type ) {
-                case 0x1406: setValueV1f( (float)value); break; // FLOAT
+                case 0x1406: setValueV1f( toFloat(value)); break; // FLOAT
                 case 0x8b50: setValueV2f((Vector2) value); break; // _VEC2
                 case 0x8b51:    // _VEC3
                     if (value instanceof Color) {

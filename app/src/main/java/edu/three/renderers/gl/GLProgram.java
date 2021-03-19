@@ -308,6 +308,9 @@ public class GLProgram {
 
                     customDefines,
 
+                params.instancing ? "#define USE_INSTANCING" : "",
+                params.instancingColor ? "#define USE_INSTANCING_COLOR" : "",
+
                     params.supportsVertexTextures ? "#define VERTEX_TEXTURES" : "",
 
                     "#define GAMMA_FACTOR " + gammaFactorDefine,
@@ -333,7 +336,7 @@ public class GLProgram {
                     params.alphaMap ? "#define USE_ALPHAMAP" : "",
 
                     params.vertexTangents ? "#define USE_TANGENT" : "",
-                    params.vertexColors ? "#define USE_COLOR" : "",
+                    params.vertexColors || params.instancingColor ? "#define USE_COLOR" : "",
 
                     params.flatShading ? "#define FLAT_SHADED" : "",
 
@@ -359,6 +362,18 @@ public class GLProgram {
                     "uniform mat4 viewMatrix;",
                     "uniform mat3 normalMatrix;",
                     "uniform vec3 cameraPosition;",
+
+                "#ifdef USE_INSTANCING",
+
+                "	attribute mat4 instanceMatrix;",
+
+                "#endif",
+
+                "#ifdef USE_INSTANCING_COLOR",
+
+                "	attribute vec3 instanceColor;",
+
+                "#endif",
 
                     "attribute vec3 position;",
                     "attribute vec3 normal;",

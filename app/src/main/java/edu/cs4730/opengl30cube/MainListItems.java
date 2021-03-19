@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.cs4730.opengl30cube.renderer.CanvasTextureDemo;
+import edu.cs4730.opengl30cube.renderer.InstancingDemo;
 import edu.cs4730.opengl30cube.renderer.LambertPhongLightRender;
 import edu.cs4730.opengl30cube.renderer.RaycastCameraControlView;
 import edu.cs4730.opengl30cube.renderer.SpriteDemo;
 import edu.cs4730.opengl30cube.renderer.SpriteTextDemo;
 import edu.cs4730.opengl30cube.renderer.TestPerformanceView;
+import edu.cs4730.opengl30cube.renderer.TestTubeGeometry;
 import edu.cs4730.opengl30cube.renderer.TextureDemo;
 import edu.three.objects.Sprite;
 
@@ -26,6 +28,8 @@ public class MainListItems {
         addItem(new Item(SpriteDemo.class, "Sprite demo"));
         addItem(new Item(SpriteTextDemo.class, "Sprite text demo"));
         addItem(new Item(TestPerformanceView.class, "性能测试"));
+        addItem(new Item(TestTubeGeometry.class, "管道几何体测试"));
+        addItem(new Item(InstancingDemo.class, "实例化"));
     }
 
     public static class Item {
