@@ -176,7 +176,7 @@ public class InstancingDemo extends BaseRender {
     long time = System.currentTimeMillis();
     mesh.rotation.y(time * 0.00005);
 
-    long delta = (time - lastTime) / 5000;
+    double delta = (time - lastTime) / 5000d;
     tmpQ.set(moveQ.x() * delta, moveQ.y() * delta, moveQ.z() * delta, 1).normalize();
     tmpM.makeRotationFromQuaternion(tmpQ);
     for (int i = 0; i < instances; i++) {
