@@ -283,13 +283,6 @@ public class BufferGeometry extends EventDispatcher implements IGeometry {
         return ret;
     }
 
-    public int maxInstancedCount() {
-        return -1;
-    }
-
-    public void maxInstancedCount(int value) {
-    }
-
     public BufferGeometry fromGeometry(Geometry geometrySrc) {
         DirectGeometry geometry = new DirectGeometry().fromGeometry(geometrySrc);
         float[] positions = new float[geometry.vertices.length * 3];

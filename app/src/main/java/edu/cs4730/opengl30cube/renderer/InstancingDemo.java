@@ -34,7 +34,7 @@ public class InstancingDemo extends BaseRender {
   private PerspectiveCamera camera;
   private Scene scene = new Scene();
 
-  private static final float Z_NEAR = 0.1f;
+  private static final float Z_NEAR = 1f;
   private static final float Z_FAR = 1000f;
 
   int instances = 5000;
@@ -62,7 +62,7 @@ public class InstancingDemo extends BaseRender {
     GLRenderer.Param param = new GLRenderer.Param();
     param.antialias = true;
     renderer = new GLRenderer(param, mWidth, mHeight);
-    renderer.setClearColor(0x101010, 1);
+    renderer.setClearColor(0x000055, 1);
 
     InstancedBufferGeometry geometry = new InstancedBufferGeometry();
     // per mesh data x,y,z,w,u,v,s,t for 4-element alignment
@@ -160,13 +160,13 @@ public class InstancingDemo extends BaseRender {
 
     scene.add(mesh);
 
-    camera = new PerspectiveCamera(45, aspect, Z_NEAR, Z_FAR);
+    camera = new PerspectiveCamera(50, aspect, Z_NEAR, Z_FAR);
     camera.position = new Vector3(0, 0, 30);
     camera.lookAt(scene.position);
     controls = new TrackballControls(new Screen(0, 0, mWidth, mHeight), camera);
 
-    AxesHelper axesHelper = new AxesHelper(20);
-    scene.add(axesHelper);
+//    AxesHelper axesHelper = new AxesHelper(20);
+//    scene.add(axesHelper);
   }
 
   // /

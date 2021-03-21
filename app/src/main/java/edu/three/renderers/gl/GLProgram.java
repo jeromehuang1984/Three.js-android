@@ -559,8 +559,8 @@ public class GLProgram {
             prefixFragment = prefixArrStr + "\n" + prefixFragment;
         }
 
-        String vertexGlsl = prefixVertex + vertexShader;
-        String fragmentGlsl = prefixFragment + fragmentShader;
+        String vertexGlsl = prefixVertex + "\n" + vertexShader;
+        String fragmentGlsl = prefixFragment + "\n" + fragmentShader;
 
         int glVertexShader = loadShader(GLES30.GL_VERTEX_SHADER, vertexGlsl);
         int glFragmentShader = loadShader(GLES30.GL_FRAGMENT_SHADER, fragmentGlsl);

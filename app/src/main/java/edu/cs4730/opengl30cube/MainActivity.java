@@ -25,6 +25,9 @@ import edu.cs4730.opengl30cube.renderer.TextureDemo;
 import edu.three.renderers.GLRenderer;
 import edu.util.RawShaderLoader;
 
+import static android.opengl.GLSurfaceView.DEBUG_CHECK_GL_ERROR;
+import static android.opengl.GLSurfaceView.DEBUG_LOG_GL_CALLS;
+
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
     GLSurfaceView glSurfaceView;
@@ -44,18 +47,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-        int position = MainListItems.getIndex(SpriteTextDemo.class);
-//        int position = MainListItems.getIndex(LambertPhongLightRender.class);
-        listView.performItemClick(adapter.getView(position, null, listView), position,
-                adapter.getItemId(position));
+//        int position = MainListItems.getIndex(SpriteTextDemo.class);
+////        int position = MainListItems.getIndex(LambertPhongLightRender.class);
+//        listView.performItemClick(adapter.getView(position, null, listView), position,
+//                adapter.getItemId(position));
 
-    }
-
-    private boolean detectOpenGLES30() {
-        ActivityManager am =
-                (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        ConfigurationInfo info = am.getDeviceConfigurationInfo();
-        return (info.reqGlEsVersion >= 0x30000);
     }
 
     @Override
@@ -120,6 +116,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         // Create an OpenGL ES 3.0 context.
         glSurfaceView.setEGLContextClientVersion(3);
         glSurfaceView.setEGLConfigChooser(true);
+        glSurfaceView.setDebugFlags(BuildConfig.DEBUG ? DEBUG_LOG_GL_CALLS : DEBUG_CHECK_GL_ERROR);
+
         renderer = (BaseRender) MainListItems.getRenderer(clickClass, glSurfaceView);
         if (renderer == null) {
             Toast.makeText(this, "java reflection construction failure.", Toast.LENGTH_SHORT).show();

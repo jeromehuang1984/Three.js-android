@@ -11,6 +11,7 @@ import java.nio.IntBuffer;
 import java.util.WeakHashMap;
 
 import edu.three.core.BufferAttribute;
+import edu.three.core.InterleavedBufferAttribute;
 
 public class GLAttributes {
     WeakHashMap<BufferAttribute, BufferItem> buffers = new WeakHashMap<>();
@@ -72,10 +73,14 @@ public class GLAttributes {
     }
 
     public BufferItem get(BufferAttribute attribute) {
+        if (attribute instanceof InterleavedBufferAttribute)
+            attribute = ((InterleavedBufferAttribute) attribute).data;
         return buffers.get(attribute);
     }
 
     public void remove(BufferAttribute attribute) {
+        if (attribute instanceof InterleavedBufferAttribute)
+            attribute = ((InterleavedBufferAttribute) attribute).data;
         BufferItem data = buffers.get(attribute);
         if (data != null) {
             GLES30.glDeleteBuffers(1, data.bufferLoc, 0);
@@ -84,6 +89,8 @@ public class GLAttributes {
     }
 
     public void update(BufferAttribute attribute, int bufferType) {
+        if (attribute instanceof InterleavedBufferAttribute)
+            attribute = ((InterleavedBufferAttribute) attribute).data;
         BufferItem data = buffers.get(attribute);
         if (data == null) {
             buffers.put(attribute, createBuffer(attribute, bufferType));

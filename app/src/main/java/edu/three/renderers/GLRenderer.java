@@ -610,7 +610,7 @@ public class GLRenderer {
         }
 
         if (updateBuffers) {
-            setupVertexAttributes(material, program, geometry);
+            setupVertexAttributes(object, material, program, geometry);
             if (index != null) {
                 GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, attribute.bufferLoc[0]);
             }
@@ -684,7 +684,7 @@ public class GLRenderer {
         }
     }
 
-    public void setupVertexAttributes(Material material, GLProgram program, BufferGeometry geometry) {
+    public void setupVertexAttributes(Object3D object, Material material, GLProgram program, BufferGeometry geometry) {
         state.initAttributes();
         HashMap<String, BufferAttribute> geometryAttributes = geometry.getAttributesTotal();
         HashMap<String, Integer> programAttributes = program.getAttributes();
@@ -714,8 +714,9 @@ public class GLRenderer {
                         if (data != null && data instanceof InstancedInterleavedBuffer) {
                             int meshPerAttribute = ((InstancedInterleavedBuffer) data).meshPerAttribute;
                             state.enableAttribute(programAttribute, meshPerAttribute);
-                            if (geometry.maxInstancedCount() < 0) {
-                                geometry.maxInstancedCount(meshPerAttribute * data.count);
+                            InstancedBufferGeometry geometry2 = (InstancedBufferGeometry) geometry;
+                            if (geometry2.maxInstancedCount == null) {
+                                geometry2.maxInstancedCount = meshPerAttribute * data.count;
                             }
                         } else {
                             state.enableAttribute(programAttribute);
@@ -727,8 +728,9 @@ public class GLRenderer {
                         if (geometryAttribute instanceof InstancedBufferAttribute) {
                             int meshPerAttribute = ((InstancedBufferAttribute) geometryAttribute).meshPerAttribute;
                             state.enableAttribute(programAttribute, meshPerAttribute);
-                            if (geometry.maxInstancedCount() < 0) {
-                                geometry.maxInstancedCount(meshPerAttribute * geometryAttribute.getCount());
+                            InstancedBufferGeometry geometry2 = (InstancedBufferGeometry) geometry;
+                            if (geometry2.maxInstancedCount == null) {
+                                geometry2.maxInstancedCount = meshPerAttribute * geometryAttribute.getCount();
                             }
                         } else {
                             state.enableAttribute(programAttribute);
@@ -736,6 +738,25 @@ public class GLRenderer {
                         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, attribute.bufferLoc[0]);
                         GLES30.glVertexAttribPointer(programAttribute, size, type, normalized, 0, 0 );
                     }
+                } else if (name.equals("instanceMatrix")) {
+                    InstancedMesh obj2 = (InstancedMesh) object;
+                    GLAttributes.BufferItem attribute = attributes.get(obj2.instanceMatrix);
+                    if (attribute == null)
+                        continue;
+
+                    Buffer buffer = attribute.buffer;
+                    int type = attribute.type;
+                    state.enableAttribute(programAttribute, 1);
+                    state.enableAttribute(programAttribute+1, 1);
+                    state.enableAttribute(programAttribute+2, 1);
+                    state.enableAttribute(programAttribute+3, 1);
+                    GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, attribute.bufferLoc[0]);
+
+                    GLES30.glVertexAttribPointer(programAttribute, 4, type, false, 64, 0);
+                    GLES30.glVertexAttribPointer(programAttribute+1, 4, type, false, 64, 16);
+                    GLES30.glVertexAttribPointer(programAttribute+2, 4, type, false, 64, 32);
+                    GLES30.glVertexAttribPointer(programAttribute+3, 4, type, false, 64, 48);
+
                 } else if (materialDefaultAttributeValues != null) {
                     float[] value = materialDefaultAttributeValues.get(name);
                     if (value != null) {

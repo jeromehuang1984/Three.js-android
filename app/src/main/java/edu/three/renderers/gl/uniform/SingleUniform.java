@@ -96,6 +96,8 @@ public class SingleUniform extends Uniform {
     float toFloat(Object value) {
         if (value instanceof Double)
             return ((Number)value).floatValue();
+        if (value instanceof Integer)
+            return ((Number)value).intValue();
         return (float) value;
     }
     public void setValue(Object value, GLTextures textures) {

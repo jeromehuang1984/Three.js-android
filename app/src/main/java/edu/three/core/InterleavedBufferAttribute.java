@@ -5,15 +5,14 @@ public class InterleavedBufferAttribute extends BufferAttribute {
     public int offset;
 
     public InterleavedBufferAttribute() {
-        normalized = true;
     }
 
     public InterleavedBufferAttribute(InterleavedBuffer interleavedBuffer, int itemSize, int offset) {
-        this(interleavedBuffer, itemSize, offset, true);
+        this(interleavedBuffer, itemSize, offset, false);
     }
     public InterleavedBufferAttribute(InterleavedBuffer interleavedBuffer, int itemSize, int offset, boolean normalized) {
         data = interleavedBuffer;
-        arrayFloat = data.array;
+        arrayFloat = data.arrayFloat;
         this.itemSize = itemSize;
         this.offset = offset;
         this.normalized = normalized;
@@ -26,7 +25,7 @@ public class InterleavedBufferAttribute extends BufferAttribute {
     }
 
     public float[] getArray() {
-        return data.array;
+        return data.arrayFloat;
     }
 
     public float getX(int index) {

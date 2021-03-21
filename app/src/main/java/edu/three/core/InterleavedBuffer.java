@@ -2,24 +2,20 @@ package edu.three.core;
 
 import java.util.Arrays;
 
-public class InterleavedBuffer {
-    public float[] array;
+public class InterleavedBuffer extends BufferAttribute {
     public int stride;
     public int count;
     boolean dynamic = false;
-    public int updateRangeOffset = 0;
-    public int updateRangeCount = -1;
-    int version = 0;
-    int arrLen = 0;
 
     public InterleavedBuffer() {}
 
     public InterleavedBuffer(float[] array, int stride) {
-        this.array = array;
+        this.arrayFloat = array;
         this.stride = stride;
         if (array != null) {
-            count = array.length;
+            count = array.length / stride;
         }
+        bufferType = TYPE_FLOAT;
     }
 
     public void setNeedsUpdate(boolean value) {
@@ -42,13 +38,13 @@ public class InterleavedBuffer {
     }
 
     public InterleavedBuffer setArray(float[] array) {
-        this.array = array;
+        this.arrayFloat = array;
         count = array != null ? array.length / stride : 0;
         return this;
     }
 
     public InterleavedBuffer copy(InterleavedBuffer source) {
-        array = Arrays.copyOf(source.array, source.array.length);
+        arrayFloat = Arrays.copyOf(source.arrayFloat, source.arrayFloat.length);
         this.count = source.count;
         this.stride = source.stride;
         this.dynamic = source.dynamic;
@@ -60,14 +56,14 @@ public class InterleavedBuffer {
         index1 *= stride;
         index2 *= attribute.stride;
         for ( int i = 0; i < stride; i ++ ) {
-            array[ index1 + i ] = attribute.array[ index2 + i ];
+            arrayFloat[ index1 + i ] = attribute.arrayFloat[ index2 + i ];
         }
 
         return this;
     }
 
     public InterleavedBuffer set(float[] value, int offset) {
-        array = Arrays.copyOfRange(value, offset, value.length);
+        arrayFloat = Arrays.copyOfRange(value, offset, value.length);
         return this;
     }
 

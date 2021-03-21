@@ -26,7 +26,7 @@ public class BufferAttribute {
     public int updateRangeOffset = 0;
     public int updateRangeCount = -1;
 
-    private int version = 0;
+    int version = 0;
 
     public void setNeedsUpdate(boolean value) {
         if (value) {

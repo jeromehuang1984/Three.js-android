@@ -3,6 +3,7 @@ package edu.three.renderers.gl;
 import android.opengl.GLES30;
 
 import edu.three.core.BufferGeometry;
+import edu.three.core.InstancedBufferGeometry;
 
 public class GLBufferRenderer {
     int mode;
@@ -27,7 +28,7 @@ public class GLBufferRenderer {
     }
 
     public void renderInstances(BufferGeometry geometry, int start, int count) {
-        GLES30.glDrawArraysInstanced(mode, start, count, geometry.maxInstancedCount());
-        info.update(count, mode, geometry.maxInstancedCount());
+        GLES30.glDrawArraysInstanced(mode, start, count, ((InstancedBufferGeometry)geometry).maxInstancedCount);
+        info.update(count, mode, ((InstancedBufferGeometry)geometry).maxInstancedCount);
     }
 }
