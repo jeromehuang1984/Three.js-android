@@ -20,6 +20,7 @@ import edu.three.helpers.AxesHelper;
 import edu.three.loaders.TextureLoader;
 import edu.three.materials.Material;
 import edu.three.materials.MeshBasicMaterial;
+import edu.three.math.Color;
 import edu.three.math.Matrix4;
 import edu.three.math.Quaternion;
 import edu.three.math.Vector3;
@@ -158,15 +159,28 @@ public class InstancingDemo extends BaseRender {
       mesh.setMatrixAt( i, matrix );
     }
 
-    scene.add(mesh);
-
     camera = new PerspectiveCamera(50, aspect, Z_NEAR, Z_FAR);
     camera.position = new Vector3(0, 0, 30);
     camera.lookAt(scene.position);
     controls = new TrackballControls(new Screen(0, 0, mWidth, mHeight), camera);
 
-//    AxesHelper axesHelper = new AxesHelper(20);
-//    scene.add(axesHelper);
+    AxesHelper axesHelper = new AxesHelper(20);
+    scene.add(axesHelper);
+
+    Mesh mCube = new Mesh(new BoxBufferGeometry(new BoxParam()) );
+    int[] colors = new int[] {
+        0xcccc00, 0xffffff, 0x0000cc, 0x009900, 0xbb0000, 0xcc6600
+    };
+    for (int i = 0; i < 6; i++) {
+      MeshBasicMaterial materialFace = new MeshBasicMaterial();
+      materialFace.color = new Color(colors[i]);
+      materialFace.transparent = true;
+      materialFace.opacity = 0.5f;
+      mCube.material.add(materialFace);
+    }
+    scene.add(mCube);
+
+    scene.add(mesh);
   }
 
   // /

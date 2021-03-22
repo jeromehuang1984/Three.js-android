@@ -114,7 +114,7 @@ public class GLState {
     }
 
     public void enableAttribute(int attribute) {
-        enableAttribute(attribute, -1);
+        enableAttribute(attribute, 0);
     }
     public void enableAttribute(int attribute, int meshPerAttribute) {
         newAttributes[attribute] = 1;
