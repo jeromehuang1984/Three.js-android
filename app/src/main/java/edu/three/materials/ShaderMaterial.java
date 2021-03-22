@@ -9,9 +9,6 @@ public class ShaderMaterial extends Material {
     public String index0AttributeName;
     HashMap<String, float[]> defaultAttributeValues = new HashMap<>();
 
-    public UniformsLib uniforms;
-    public String vertexShader;
-    public String fragmentShader;
     public boolean uniformsNeedUpdate = false;
 
     public ShaderMaterial() {
